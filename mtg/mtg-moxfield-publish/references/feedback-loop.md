@@ -51,19 +51,19 @@ it.
 When in doubt it is personal. The bar for upstream is "anyone would call this a
 bug", not "I would have done it differently".
 
-## Recording a rule locally
+## Recording a personal rule
 
-If you can write to the skill's own files - you are the maintainer, and the folder
-is writable - **just make the edit**. That is the whole loop. A log entry
-duplicating a change you already made is noise.
+**It goes in memory, never in the skill folder.** Your own persistent memory if you
+have one, otherwise a file the user owns outside the skill folder. Two reasons, and
+they hold whether or not you happen to have write access to the skill: an installed
+copy is overwritten the next time the skill updates, and a rule that is right for
+this user is wrong to ship to everyone else. Tell the user where you put it.
 
-If you cannot - the skill is an installed or synced copy, which is often read-only
-and is overwritten on update - then `feedback/LEARNINGS.md` inside the skill folder
-is the wrong home for it, because the next update deletes it. Keep the rule where
-it survives: the assistant's own persistent memory if it has one, or a file the
-user owns outside the skill folder. Tell the user which you used.
+This skill carries no learning file of its own, deliberately. If you find yourself
+looking for one, the rule belongs in memory or - if it is a defect rather than a
+preference - in a pull request.
 
-Either way, record it in a form the next session can act on - the correction in the
+Record it in a form the next session can act on - the correction in the
 user's own words, the rule it implies, and the file it belongs to:
 
 ```markdown
@@ -81,6 +81,9 @@ payoff card; keep purely evocative names to at most one option.
 Only when the user asks for it. Opening a pull request writes to someone else's
 repository, so it gets the same treatment as publishing to Moxfield: propose it,
 and act only on an explicit yes.
+
+A defect is fixed **on a branch, in the files** - not logged somewhere for the
+maintainer to act on later.
 
 The goal is a **pull request the maintainer can merge without doing any work** -
 not an issue describing a problem for them to solve. So make the change:
