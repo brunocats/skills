@@ -96,19 +96,29 @@ jobs:
           ALLOWED = {
               "moxfield.com", "www.moxfield.com",
               "scryfall.com", "api.scryfall.com",
-              "github.com", "docs.github.com", "raw.githubusercontent.com",
+              "github.com", "docs.github.com",
               "docs.zizmor.sh", "www.conventionalcommits.org",
               "arxiv.org", "safedep.io", "snyk.io",
           }
           # An allowlisted host is not a free pass to arbitrary content: these
           # paths serve attacker-controlled bytes from github.com itself.
+          # raw.githubusercontent.com is deliberately absent from ALLOWED for the
+          # same reason - it is the same channel under a different name.
           RAW_ON_GITHUB = re.compile(
               r"^https?://(?:www\.|gist\.)?github\.com/\S*?/(?:raw/|releases/download/)")
           URL = re.compile(r"https?://[A-Za-z0-9.\-]+\S*")
           HOST = re.compile(r"https?://([A-Za-z0-9.\-]+)")
 
           # Files that are not markdown but are written by release automation.
-          MD_EXEMPT = {"CHANGELOG.md", "version.txt", ".release-please-manifest.json"}
+          # Matched by full path, not by basename: a references/version.txt is not
+          # the same file as a package's own. CHANGELOG.md needs no entry - it is
+          # already markdown.
+          def release_artifact(p):
+              return (p == ".release-please-manifest.json"
+                      or re.fullmatch(r"[^/]+/[^/]+/version\.txt", p) is not None)
+
+          def protected(p):
+              return bool(re.search(r"(^|/)SKILL\.md$", p)) or p.startswith(".github/")
 
           # Characters that make the rendered diff differ from the text an
           # assistant reads. Category Cf covers zero-width, soft hyphen, the
@@ -127,25 +137,49 @@ jobs:
 
           # 1. Protected paths, file types and sizes. These are the restrictions
           #    GitHub's push rulesets would carry on a plan that had them.
+          refused = set()
           for raw in open("/tmp/pr.names", encoding="utf-8"):
               parts = raw.rstrip("\n").split("\t")
               if len(parts) < 2:
                   continue
-              status, paths = parts[0], parts[1:]
-              for p in paths:
+              status, rest = parts[0], parts[1:]
+              # A rename is a removal of the old path and an addition of the new.
+              if status[0] == "R" and len(rest) == 2:
+                  removed, present = [rest[0]], [rest[1]]
+              elif status[0] == "D":
+                  removed, present = rest, []
+              else:
+                  removed, present = [], rest
+
+              for p in removed + present:
                   if re.search(r"(^|/)SKILL\.md$", p):
                       fails.append(f"{p}: SKILL.md is maintainer-only - see CONTRIBUTING.md")
-                      continue
-                  if p.startswith(".github/"):
+                      refused.add(p)
+                  elif p.startswith(".github/"):
                       fails.append(f"{p}: CI configuration is maintainer-only")
+                      refused.add(p)
+
+              for p in removed:
+                  if p.endswith(".md") and not protected(p):
+                      fails.append(f"{p}: removing a markdown file is maintainer-only - "
+                                   f"a quality fix edits a file, it does not delete one")
+
+              for p in present:
+                  if protected(p):
                       continue
-                  if status[0] not in "AMR":
+                  # A symlink named foo.md satisfies any extension check, and
+                  # getsize follows it. Reject the link itself.
+                  if os.path.islink(p):
+                      fails.append(f"{p}: symbolic link - skills are plain markdown files")
+                      refused.add(p)
                       continue
-                  if not p.endswith(".md") and os.path.basename(p) not in MD_EXEMPT:
+                  if not p.endswith(".md") and not release_artifact(p):
                       fails.append(f"{p}: not markdown - see CONTRIBUTING.md for what is open to pull requests")
+                      refused.add(p)
                       continue
                   if os.path.exists(p) and os.path.getsize(p) > MAX_BYTES:
                       fails.append(f"{p}: larger than {MAX_BYTES} bytes")
+                      refused.add(p)
 
           # 2. Added lines: invisible characters and outbound hosts.
           path = "?"
@@ -155,6 +189,8 @@ jobs:
                   continue
               if not line.startswith("+") or line.startswith("+++"):
                   continue
+              if path in refused:
+                  continue   # already refused whole; do not pile on
               added = line[1:]
               for ch in added:
                   if invisible(ch):
