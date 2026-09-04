@@ -12,6 +12,7 @@
         { "type": "fix", "section": "Fixed" },
         { "type": "docs", "section": "Documentation" },
         { "type": "refactor", "section": "Changed" },
+        { "type": "ci", "section": "Housekeeping", "hidden": true },
         { "type": "chore", "section": "Housekeeping", "hidden": true }
       ]
     }

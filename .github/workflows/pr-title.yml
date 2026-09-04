@@ -35,6 +35,7 @@ jobs:
             fix
             docs
             refactor
+            ci
             chore
           scopes: |
             mtg-moxfield-publish

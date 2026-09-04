@@ -33,8 +33,21 @@ is what matters, and a CI check rejects titles that do not conform.
 | --- | --- |
 | `fix(mtg-moxfield-publish): correct the bulk edit board description` | patch bump, "Fixed" |
 | `feat(mtg-moxfield-publish): add a mulligan section to the primer` | minor bump, "Added" |
-| `docs: clarify the contribution rules` | patch bump, "Documentation" |
-| `chore: bump action pins` | no release, hidden from the changelog |
+| `docs(mtg-moxfield-publish): clarify the hub selection rules` | no bump on its own; appears under "Documentation" in the next release |
+| `docs: clarify the contribution rules` | nothing - repository documentation is outside every package |
+| `ci: pin the scanner version` | nothing - hidden, and outside every package |
+| `chore: tidy the template` | nothing - hidden from the changelog |
+
+Two things decide whether a title produces a release, and both are easy to get
+wrong:
+
+- **Only `fix`, `feat` and a breaking change bump a version.** `docs`, `refactor`,
+  `ci` and `chore` are changelog material at most. A run of documentation-only
+  pull requests will not open a release pull request by itself.
+- **release-please attributes a commit to a package by the files it touches.** A
+  change to `CONTRIBUTING.md`, `docs/` or `.github/` is under no package path, so
+  it never appears in a skill's changelog whatever its type. Scope the title to a
+  skill only when the change is inside that skill's folder.
 
 A breaking change - anything that would surprise someone who already installed the
 skill - takes a `!` after the type (`feat(mtg-moxfield-publish)!: ...`) or a

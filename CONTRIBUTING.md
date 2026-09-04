@@ -69,8 +69,9 @@ docs: clarify the contribution rules
 ```
 
 Use `fix` for a correction, `feat` for something the skill could not do before,
-`docs` for documentation. The scope is the skill's name, omitted for
-repository-wide changes.
+`docs` for documentation, `ci` for the workflows. The scope is the skill's name and
+nothing else - repository-wide changes are unscoped, and a scope that is not a
+skill name will fail the check.
 
 ## What a mergeable pull request looks like
 

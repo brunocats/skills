@@ -161,8 +161,9 @@ jobs:
 
               for p in removed:
                   if p.endswith(".md") and not protected(p):
-                      fails.append(f"{p}: removing a markdown file is maintainer-only - "
-                                   f"a quality fix edits a file, it does not delete one")
+                      what = "renaming" if status[0] == "R" else "removing"
+                      fails.append(f"{p}: {what} a markdown file is maintainer-only - "
+                                   f"a quality fix edits a file in place")
 
               for p in present:
                   if protected(p):
