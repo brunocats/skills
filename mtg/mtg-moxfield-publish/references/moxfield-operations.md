@@ -34,22 +34,21 @@ visible error instead of silent corruption.
 
 ## Getting a browser
 
-The user's Chrome, via the Claude in Chrome tools (`mcp__claude-in-chrome__*`),
-is the default - that is where they are signed in to Moxfield. If those tools are
-deferred, load them in **one** call:
+You need a browser tool that can navigate, read the DOM, click by element
+reference, send real key events and run JavaScript in the page. Any assistant with
+those verbs can run this skill; the names differ between assistants (e.g., a
+`navigate` / `read_page` / `computer` / `javascript_tool` family, etc.), and if
+they load on demand, load the whole set in **one** call rather than one each.
 
-```
-ToolSearch: select:mcp__claude-in-chrome__tabs_context_mcp,mcp__claude-in-chrome__navigate,mcp__claude-in-chrome__computer,mcp__claude-in-chrome__read_page,mcp__claude-in-chrome__get_page_text,mcp__claude-in-chrome__find,mcp__claude-in-chrome__form_input,mcp__claude-in-chrome__javascript_tool,mcp__claude-in-chrome__tabs_create_mcp,mcp__claude-in-chrome__tabs_close_mcp
-```
+**Use the browser the user is already signed in to Moxfield with.** That is
+usually their own everyday browser rather than one belonging to the assistant.
+List the open tabs once before anything else, and create your own tab rather than
+hijacking one of theirs.
 
-Call `tabs_context_mcp` once before anything else, and create your own tab rather
-than hijacking one of theirs.
-
-If the extension is not connected, say so plainly and ask whether to use the
-built-in Claude browser instead (`mcp__remote-devices__Claude_Browser__*`, same
-verbs). The built-in browser has its own Moxfield session, so the user may need
-to sign in there once. Do not switch browsers on your own initiative - one of
-them is the user's real Chrome, and that difference matters to them.
+If more than one browser is available and the first is not connected, say so
+plainly and ask before switching. One of them is likely the user's real browser
+with their real session, and that difference matters to them - it is not yours to
+decide.
 
 If the deck page shows a signed-out header or no `Primer / Playtest / Edit / Buy /
 More` toolbar, the session is not logged in as the deck's owner. Stop and say so
@@ -128,6 +127,14 @@ cost - and it is why the previous rule matters.
 than three lines of `querySelector`. Take one only when the visual layout is the
 question.
 
+One thing is not negotiable for cost: **every acting call asserts the deck id
+before it writes.** Routing in-app means each call targets whatever the tab
+currently shows, and a mis-click, a back navigation or a stale tab is enough to
+point it at another deck. Park the id next to the text (`window.__D`), check
+`location.pathname.includes(window.__D)` before any save, and return the id you
+wrote to as part of the verification, so the report names the object rather than
+assuming it.
+
 ### The shape of a cheap operation
 
 ```js
@@ -161,17 +168,27 @@ warn about. Keep it that way: if an operation needs code, write it in a fence.
 
 ### A full publish, budgeted
 
+Everything: a list change, settings, image, hubs and a primer, with the
+verification steps this skill actually requires.
+
 | Call | What it does |
 | --- | --- |
-| 1 | Open the deck page |
+| 1 | Open the deck page; park the deck id on `window` |
 | 2 | Read current state: name, hubs, description, and the list via More > Export |
-| 3 | Settings: route, set description and visibility, save, verify |
-| 4 | Image and hubs: open each modal, set, save, verify |
-| 5 | Park the primer text on `window` |
-| 6 | Primer: route, select all, paste, verify length |
-| 7 | Preview, check the rendering, save, verify |
+| 3 | Bulk edit: route, select the board, read it back, write the new text, save |
+| 4 | Verify the footer counts on the deck page |
+| 5 | Settings: route, set name, description and format, save, verify |
+| 6 | Image and hubs: open each modal, set, save, verify |
+| 7 | Park the primer text on `window` |
+| 8 | Primer: route, focus the editor |
+| 9 | `cmd+a` as a real keypress - its own call, it cannot go through JS |
+| 10 | Paste, check the length, Preview, read the rendering, Save Primer |
+| 11 | Reload `/decks/<id>/primer` and read the source back - the only proof the save landed - and read the visibility off settings for the report |
 
-Seven calls, not thirty. Steps 3 and 4 combine when both are small.
+Eleven calls, not thirty. Steps 5 and 6 combine when both are small; a publish
+with no list change drops 3 and 4; a publish with no primer drops 7 to 11 and ends
+around five. What does **not** get dropped to hit a number is a verification step -
+if the budget and the checks disagree, the checks win.
 
 ## Reading the current state of a deck
 
@@ -209,9 +226,10 @@ alongside names, or just use Export.
   immediately before any list change, always.
 - `/decks/<id>/primer` - for the owner this opens the editor, so it gives the
   primer's raw source rather than rendered output. Read before revising; Cancel out.
-- `/decks/<id>/settings` - visibility, exact description, format. Read once before
-  the first push of a session: the ledger has to name the deck's current visibility,
-  and you cannot state it without looking.
+- `/decks/<id>/settings` - visibility, exact description, format. Not needed
+  before a publish: the skill sets a visibility when the user names one, and
+  otherwise reads it during post-publish verification so the final report can name
+  it. Read it earlier only if the user asks what the current setting is.
 
 **Finding a deck the user named but did not link:** the search box on
 `/decks/personal` filters their decks by name - faster and less error-prone than
@@ -297,11 +315,9 @@ Themes**: a search box and a long checkbox list, then **Save**.
 - The modal's list is the authority on which hubs exist; `references/hubs.md`
   covers which ones to pick.
 - `Primer` is a hub like any other, and the primer editor's `+ Primer Badge` button
-  is just a shortcut that adds it. Do not click it on your own initiative - it is a
-  public hub change, so it belongs in the ledger and goes through the gate like every
-  other hub. **But do put it in the ledger** whenever you are publishing a primer
-  with real content: it is what makes the deck findable by people browsing for decks
-  that have one, and forgetting it wastes the work.
+  is just a shortcut that adds it. Do not click it on its own - it is a public hub
+  change, so it goes in the ledger and through the gate like every other hub.
+  `references/hubs.md` says when to stage it.
 
 Which hubs to pick is in `references/hubs.md`.
 
@@ -341,9 +357,10 @@ name anchors on, so the box and the title agree.
 Folders are the user's private filing on `/decks/personal` (e.g., "Pioneer",
 "Commander", "Proxies", etc.) - freely named, invisible to everyone else, and
 unrelated to hubs. `+ New Folder` creates one, but only when the user has asked for
-that folder by name. A deck is moved from the per-row menu on that page; the
-wording of that menu changes, so read it and act on what is there rather than
-clicking a remembered position.
+that folder by name. A deck is moved from the per-row menu on that page. Find the row by its
+`/decks/<id>` link, never by the name shown on it - two decks can share a name -
+and read the menu rather than clicking a remembered position, because its wording
+changes.
 
 A folder move is private rather than public, but it is still a write to the user's
 account: it goes in the ledger and through the same gate as everything else, and
@@ -403,7 +420,10 @@ clicked Save:
 - The banner image is the card that was agreed.
 - The primer renders: card links are links, mana symbols are symbols, accordion
   panels are collapsible, no stray `===panel` text.
-- Visibility badge (or its absence) matches what was agreed.
+- Every save reported back the deck id it wrote to, and it is the one in the
+  ledger's Deck row.
 - `/decks/<id>/history` shows a new version - proof the save reached the server.
+- Visibility, read from `/decks/<id>/settings` - as a change to confirm if one was
+  agreed, and otherwise just so the report can name it.
 
-Then report to the user what is live, with the deck URL.
+Then report to the user what is live, with the deck URL and the deck's visibility.

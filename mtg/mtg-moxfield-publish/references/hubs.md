@@ -29,9 +29,13 @@ Cover these angles, in roughly this priority:
 4. **Context**, only if true (e.g., Budget, cEDH, Competitive, Casual, Modified,
    Webcam Friendly, etc.).
 
-`Primer`, `Unmaintained` and `Help Wanted` are the user's to ask for, not yours to
-add - the first claims the deck has a real primer, the other two are statements
-about its upkeep. Like every hub, they go in the ledger and through the gate.
+`Unmaintained` and `Help Wanted` are the user's to ask for, not yours to add -
+they are statements about the deck's upkeep that only the user can make.
+
+`Primer` is different: it is a factual statement about the deck, and it is what
+makes the deck findable by people browsing for decks that have one. **Stage it
+whenever you are publishing a primer with real content** - in the ledger, through
+the gate, like every other hub. Forgetting it wastes the work.
 
 The list below is fixed - you cannot create a hub. If a concept has no hub, search
 the *Select Themes* modal to be sure, then let it go; do not approximate with an

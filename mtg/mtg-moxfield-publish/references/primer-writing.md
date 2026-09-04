@@ -116,10 +116,15 @@ const r = await fetch('https://api.scryfall.com/cards/search?q=' + q);
 (await r.json()).data.map(c => [c.name, c.mana_cost, c.type_line, c.oracle_text]);
 ```
 
-Encode the query - raw spaces and quotes in a URL come back mangled. The WebFetch
-proxy refuses `api.scryfall.com`, so run this from a browser tab instead. Open it
-in a **new tab you close afterwards**, not in the tab holding the deck, and prefer
-the same browser you are already using for Moxfield.
+Encode the query - raw spaces and quotes in a URL come back mangled. If your
+assistant's own fetch tool cannot reach `api.scryfall.com`, run it from a browser
+tab instead.
+
+Scryfall allows cross-origin requests, so the first thing to try is running the
+`fetch` from the Moxfield tab you already have open - no new tab, no lost page
+context, one call instead of three. If it fails, the likely cause is Moxfield's own
+content security policy rather than Scryfall; fall back to a **new tab you close
+afterwards**, in the same browser you are using for Moxfield.
 
 Two details that repeatedly matter and are easy to get wrong from memory: the exact
 mana cost (cost-reduction clauses change what a card costs but not its mana value),
