@@ -1,22 +1,32 @@
 # Release notes are generated from commit messages. The repository squash-merges
 # with the pull request title as the commit subject, so the title has to be a
 # Conventional Commit or the changelog silently loses the change.
+#
+# `pull_request_target` is required here, not incidental: on a plain
+# `pull_request` this action cannot read the title of a pull request opened from
+# a fork, and forks are where contributions come from. The elevated trigger is
+# safe in this workflow because it checks nothing out - there is no step that
+# runs contributor code - and the token is narrowed to `pull-requests: read`.
+#
+# `synchronize` is in the list on purpose: a required check has to report against
+# the latest head SHA, so it must re-run on every push to the branch.
 
 name: pr title
 
 on:
-  pull_request_target:
+  pull_request_target:  # zizmor: ignore[dangerous-triggers]
     types: [opened, edited, synchronize, reopened]
 
 permissions: {}
 
 jobs:
   lint:
+    name: pr title
     runs-on: ubuntu-latest
     permissions:
       pull-requests: read
     steps:
-      - uses: amannn/action-semantic-pull-request@v5
+      - uses: amannn/action-semantic-pull-request@0723387faaf9b38adef4775cd42cfd5155ed6017 # v5.5.3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:

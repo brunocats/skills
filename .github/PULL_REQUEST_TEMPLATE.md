@@ -10,7 +10,7 @@
 
 ---
 
-- [ ] Markdown only, and no `SKILL.md` or `LEARNINGS.md` changes
+- [ ] Markdown only, and no `SKILL.md` or `.github/` changes
 - [ ] One change, one concern
 - [ ] Matches the surrounding file's conventions (English, `(e.g., ..., etc.)` on
       illustrative lists, no AI vendor names, same register)

@@ -1,8 +1,11 @@
-# Advisory ownership. The enforcement lives in the repository ruleset
-# (docs/repository-setup.md); this makes the boundary visible in the diff view
-# and requests review automatically.
+# Advisory ownership, made real by "Require review from Code Owners" on the branch
+# ruleset (docs/repository-setup.md). The hard refusal of these paths lives in the
+# `Repository policy` check; this makes the boundary visible in the diff view and
+# requests review automatically.
+#
+# Patterns without a slash match at any depth, so a skill added at a different
+# nesting level is still covered.
 
 *                       @brunocats
-/*/*/SKILL.md           @brunocats
-/*/*/feedback/          @brunocats
+SKILL.md                @brunocats
 /.github/               @brunocats

@@ -1,14 +1,17 @@
-# Repository-specific policy checks.
+# Repository policy checks, and the Agent Skill scan.
 #
-# This is the SECONDARY layer. The primary controls are GitHub repository
-# rulesets (restrict file paths / file extensions), which are evaluated by
-# GitHub itself and cannot be altered by the pull request they govern.
+# These are the enforcement. GitHub's own path/extension/size rules are PUSH
+# ruleset rules, which are not available on a public repository outside a Team
+# plan - so the path, extension and size restrictions this repository relies on
+# are implemented in the `policy` job below and made a required status check.
 # See docs/repository-setup.md.
 #
 # Everything here runs from the workflow file, which GitHub takes from the base
-# branch for `pull_request` events. Nothing executes a script from the pull
-# request's own tree - actions/checkout checks out the merge commit, so any
-# script on disk would be the contributor's copy.
+# branch for `pull_request` events. Nothing executes a script or reads a
+# manifest from the pull request's own tree - actions/checkout checks out the
+# merge commit, so any file on disk would be the contributor's copy. That is
+# also why the scanner version is written inline here rather than in a
+# requirements file; bump it by hand when a new release lands.
 
 name: skill safety
 
@@ -25,26 +28,44 @@ jobs:
     permissions:
       contents: read
       security-events: write
+      actions: read
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v5.0.0
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
         with:
           python-version: '3.12'
       - name: Install scanner
-        run: pip install cisco-ai-skill-scanner
+        run: pip install 'cisco-ai-skill-scanner==2.0.12'
       - name: Scan skills
         run: |
           set -euo pipefail
-          for skill in */*/SKILL.md; do
-            echo "::group::$(dirname "$skill")"
-            skill-scanner scan "$(dirname "$skill")" --format sarif --output "$(dirname "$skill" | tr / -).sarif"
+          mkdir -p sarif
+          found=0
+          while IFS= read -r skill; do
+            found=1
+            dir="$(dirname "$skill")"
+            name="$(echo "${dir#./}" | tr / -)"
+            echo "::group::$dir"
+            skill-scanner scan "$dir" \
+              --fail-on-severity high \
+              --format sarif --output "sarif/${name}.sarif"
             echo "::endgroup::"
-          done
+          done < <(find . -name SKILL.md -not -path './.git/*' | sort)
+          if [ "$found" -eq 0 ]; then
+            echo "::error:: no SKILL.md found - the scan covered nothing"
+            exit 1
+          fi
+      # Only the repository's own branches can write security events. On a pull
+      # request from a fork the GITHUB_TOKEN is read-only whatever this workflow
+      # requests, and the upload would fail the whole job. The scan itself is the
+      # gate (--fail-on-severity above); findings are in the job log either way.
       - name: Upload results
-        if: always()
-        uses: github/codeql-action/upload-sarif@v3
+        if: always() && github.event.pull_request.head.repo.full_name == github.repository
+        uses: github/codeql-action/upload-sarif@02c5e83432fe5497fd85b873b6c9f16a8578e1d9 # v3.37.0
         with:
-          sarif_file: .
+          sarif_file: sarif
 
   policy:
     name: Repository policy
@@ -52,49 +73,103 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v5.0.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
-      - name: Check added lines
+          persist-credentials: false
+      - name: Check the diff
         env:
           BASE_REF: ${{ github.base_ref }}
         run: |
           set -euo pipefail
           git fetch --no-tags origin "$BASE_REF"
-          git diff --unified=0 "origin/${BASE_REF}...HEAD" > /tmp/pr.diff
+          git diff --name-status "origin/${BASE_REF}...HEAD" > /tmp/pr.names
+          git diff --unified=0    "origin/${BASE_REF}...HEAD" > /tmp/pr.diff
           python3 - <<'PY'
-          import re, sys
+          import os, re, sys, unicodedata
 
-          # Hosts a skill is allowed to name. A new host in a diff is either a
-          # documentation link worth a maintainer glance, or the first half of an
-          # exfiltration channel. Either way it stops here.
+          MAX_BYTES = 1 << 20   # skills are markdown
+
+          # Hosts already named somewhere in this repository. A new host in a diff
+          # is either a documentation link worth a maintainer glance, or the first
+          # half of an exfiltration channel. Either way it stops here.
           ALLOWED = {
-              "moxfield.com", "www.moxfield.com", "scryfall.com", "api.scryfall.com",
-              "github.com", "docs.github.com", "company.wizards.com",
+              "moxfield.com", "www.moxfield.com",
+              "scryfall.com", "api.scryfall.com",
+              "github.com", "docs.github.com", "raw.githubusercontent.com",
+              "docs.zizmor.sh", "www.conventionalcommits.org",
+              "arxiv.org", "safedep.io", "snyk.io",
           }
-          # Characters that make the rendered diff differ from what an assistant
-          # reads. GitHub warns on the bidirectional ones in its own diff view;
-          # this also catches zero-width and soft hyphen.
-          INVISIBLE = re.compile("[­​-‏‪-‮⁠-⁤⁦-⁩﻿]")
-          URL = re.compile(r"https?://([A-Za-z0-9.\-]+)")
+          # An allowlisted host is not a free pass to arbitrary content: these
+          # paths serve attacker-controlled bytes from github.com itself.
+          RAW_ON_GITHUB = re.compile(
+              r"^https?://(?:www\.|gist\.)?github\.com/\S*?/(?:raw/|releases/download/)")
+          URL = re.compile(r"https?://[A-Za-z0-9.\-]+\S*")
+          HOST = re.compile(r"https?://([A-Za-z0-9.\-]+)")
 
-          fails, path = [], "?"
+          # Files that are not markdown but are written by release automation.
+          MD_EXEMPT = {"CHANGELOG.md", "version.txt", ".release-please-manifest.json"}
+
+          # Characters that make the rendered diff differ from the text an
+          # assistant reads. Category Cf covers zero-width, soft hyphen, the
+          # bidirectional overrides, the Arabic letter mark and the Unicode Tags
+          # block used to smuggle instructions. Two filler characters render as
+          # nothing but are category Lo, so they are listed by codepoint.
+          FILLERS = {0x3164, 0xFFA0}
+
+          def invisible(ch):
+              cp = ord(ch)
+              return (unicodedata.category(ch) == "Cf"
+                      or cp in FILLERS
+                      or 0xE0000 <= cp <= 0xE007F)
+
+          fails = []
+
+          # 1. Protected paths, file types and sizes. These are the restrictions
+          #    GitHub's push rulesets would carry on a plan that had them.
+          for raw in open("/tmp/pr.names", encoding="utf-8"):
+              parts = raw.rstrip("\n").split("\t")
+              if len(parts) < 2:
+                  continue
+              status, paths = parts[0], parts[1:]
+              for p in paths:
+                  if re.search(r"(^|/)SKILL\.md$", p):
+                      fails.append(f"{p}: SKILL.md is maintainer-only - see CONTRIBUTING.md")
+                      continue
+                  if p.startswith(".github/"):
+                      fails.append(f"{p}: CI configuration is maintainer-only")
+                      continue
+                  if status[0] not in "AMR":
+                      continue
+                  if not p.endswith(".md") and os.path.basename(p) not in MD_EXEMPT:
+                      fails.append(f"{p}: not markdown - see CONTRIBUTING.md for what is open to pull requests")
+                      continue
+                  if os.path.exists(p) and os.path.getsize(p) > MAX_BYTES:
+                      fails.append(f"{p}: larger than {MAX_BYTES} bytes")
+
+          # 2. Added lines: invisible characters and outbound hosts.
+          path = "?"
           for line in open("/tmp/pr.diff", encoding="utf-8", errors="replace"):
               if line.startswith("+++ b/"):
-                  path = line[6:].strip(); continue
+                  path = line[6:].strip()
+                  continue
               if not line.startswith("+") or line.startswith("+++"):
                   continue
               added = line[1:]
-              for ch in INVISIBLE.findall(added):
-                  fails.append(f"{path}: invisible character U+{ord(ch):04X} in an added line")
-              for host in URL.findall(added):
+              for ch in added:
+                  if invisible(ch):
+                      fails.append(f"{path}: invisible character U+{ord(ch):04X} in an added line")
+              for url in URL.findall(added):
+                  host = HOST.match(url).group(1)
                   if host not in ALLOWED:
                       fails.append(f"{path}: new outbound host '{host}'")
+                  elif RAW_ON_GITHUB.match(url):
+                      fails.append(f"{path}: raw file download from an allowlisted host - {url}")
 
           for f in fails:
               print(f"::error:: {f}")
           if fails:
-              print(f"\n{len(fails)} blocking issue(s). See SECURITY.md.")
+              print(f"\n{len(fails)} blocking issue(s). See SECURITY.md and CONTRIBUTING.md.")
               sys.exit(1)
           print("Repository policy checks passed.")
           PY
