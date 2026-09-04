@@ -61,10 +61,18 @@ is in the ruleset bypass list, so required checks do not block merging it. If yo
 would rather they ran, create a fine-grained personal access token with contents
 and pull-requests write, store it as a secret, and pass it to the action as `token:`.
 
+## What release-please writes
+
+The `simple` release type maintains a `version.txt` alongside `CHANGELOG.md` in the
+skill's folder. Both are non-markdown or automation-owned files inside a folder
+that is otherwise markdown only, so the `Repository policy` check exempts them by
+name. If you add a package, keep that exemption list in
+`.github/workflows/skill-safety.yml` in step with it.
+
 ## Action pinning
 
-`release.yml` and `pr-title.yml` reference their actions by version tag rather than
-commit SHA, because the SHAs were not verified when they were written. Pin them
-once - `gh api repos/googleapis/release-please-action/git/ref/tags/v4` and the
-equivalent for `amannn/action-semantic-pull-request` - and Dependabot will keep
-them current from then on. zizmor will flag them until you do.
+Every action is pinned to a commit SHA with the version in a trailing comment.
+Dependabot reads that comment to decide what the current version is, so **the
+comment has to match the SHA** - a wrong one makes Dependabot "update" you to
+something older or stranger than what you have. When pinning by hand, take the SHA
+from the release page for the tag you are naming, not from the tip of a branch.

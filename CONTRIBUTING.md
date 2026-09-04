@@ -33,7 +33,8 @@ differently".
 - Anything that weakens a safety rule
 
 If your change is about how *you* like the output, keep it in your own copy. That
-is what a skill's local learning loop is for.
+is what a skill's local learning loop is for - it records your preferences in your
+assistant's memory, not in this repository.
 
 ## What you may change
 
@@ -43,12 +44,16 @@ deliberately narrow. [SECURITY.md](SECURITY.md) explains why.
 **Open to pull requests:** `references/*.md` in any skill, and the documentation at
 the repository root.
 
-**Maintainer-only, and blocked by a repository ruleset:** any `SKILL.md`, any
-skill's `feedback/LEARNINGS.md`, anything under `.github/`, any non-markdown file,
-and any new link to a host outside the allowlist. These are refused by GitHub
-itself, not by a reviewer's judgement, so a pull request touching them cannot be
-merged. If you believe such a change is genuinely needed, open a pull request
-against a reference file making the case, and say so plainly.
+**Maintainer-only:** any `SKILL.md`, anything under `.github/`, any non-markdown
+file, any file over 1 MB, and any new link to a host not already named in this
+repository. These are refused by the `Repository policy` check, which is a
+required status check - so a pull request touching them cannot be merged, whatever
+a reviewer thinks of it. If you believe such a change is genuinely needed, open a
+pull request against a reference file making the case, and say so plainly.
+
+`SKILL.md` also governs by precedence: where a reference file contradicts it,
+`SKILL.md` wins. A change to a reference file cannot loosen a rule that lives
+there.
 
 ## Pull request titles
 
@@ -76,5 +81,6 @@ repository-wide changes.
 - The description fills in the template, including why it is not a preference
 
 Automated checks run on every pull request - an Agent Skill scanner, a workflow
-audit and the repository policy check. They are a floor, not a verdict: every line
-still gets read.
+audit and the repository policy check, all of which fail the pull request rather
+than filing a report. They are a floor, not a verdict: every line still gets
+read.
