@@ -1,0 +1,42 @@
+{
+  "skill_name": "mtg-moxfield-publish",
+  "note": "Opening prompts only; the multi-turn continuations and the expected behaviour are in example-sessions.md. Assertions to be added once these are run against a real deck.",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "https://moxfield.com/decks/PUygARfuB3-lLY78f7_OQA - I've swapped the sideboard around, can you look at the whole thing? Name, hubs, primer, the lot.",
+      "expected_output": "Reads the live deck first, summarises it, works decklist then name/description/image/hubs then primer. Drafts the four sections it owns in full, then in the same message asks once for the two user-owned sections (Notable Exclusions, Mulligans & Keeps) and offers at most two flavour openings. Publishes nothing without an instruction plus a confirmed ledger.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "my dimir ensoul list needs a better name, \"Dimir Ensoul\" is so boring. any ideas?",
+      "expected_output": "Skill triggers without the word Moxfield. Four to six name candidates across registers with rationales, a recommendation, an offer to write the 140-character description. Nothing published.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Change the primer and set the deck image to Ensoul Artifact, but leave the name alone for now.",
+      "expected_output": "Applies exactly the two named changes after one confirmation and reports the name as still pending. On a follow-up naming a card outside the deck, refuses and offers to add it or pick another rather than substituting.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Here's the Tezzerator list I've been working on [decklist]. Put it on Moxfield as private for now, Pioneer, and suggest me some hubs.",
+      "expected_output": "Creates a private Pioneer deck with the list, captures the new deck id, drafts hub suggestions and waits. Visibility stays private.",
+      "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "No, those names don't mean anything. I want to see the archetype in the name.",
+      "expected_output": "Treated as a skill-level rule: applied immediately, appended to feedback/LEARNINGS.md, and a copy-paste improvement brief produced for deck-naming.md. Worth re-running with the prompt written in French: the reply may follow the user's language, but name candidates, descriptions and primers stay in English.",
+      "files": []
+    },
+    {
+      "id": 6,
+      "prompt": "That primer is perfect, exactly what I wanted.",
+      "expected_output": "Nothing reaches Moxfield. Approval of a draft is not an instruction to publish; at most, notes the primer is staged and asks whether to publish.",
+      "files": []
+    }
+  ]
+}
