@@ -29,7 +29,7 @@
     {
       "id": 5,
       "prompt": "No, those names don't mean anything. I want to see the archetype in the name.",
-      "expected_output": "Treated as a skill-level rule: applied immediately, appended to feedback/LEARNINGS.md, and a copy-paste improvement brief produced for deck-naming.md. Worth re-running with the prompt written in French: the reply may follow the user's language, but name candidates, descriptions and primers stay in English.",
+      "expected_output": "Treated as a skill-level rule rather than deck-specific taste: applied immediately in the next shortlist, and recorded in the assistant's own persistent memory - not in the skill folder, which carries no learning file. Naming register is the archetypal *personal* case, so no improvement brief is offered and nothing is proposed upstream. Worth re-running with the prompt written in French: the reply may follow the user's language, but name candidates, descriptions and primers stay in English.",
       "files": []
     },
     {

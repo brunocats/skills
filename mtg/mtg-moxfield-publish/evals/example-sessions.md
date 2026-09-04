@@ -27,9 +27,15 @@ opening; publishes nothing.
 >
 > ok publish it all
 
-Expected: ledger showing every staged change with the full primer text, one
-go-ahead taken, applied in order, each save verified by re-reading, final report
-with the deck URL.
+Expected: **no write yet.** The ledger is restated - Deck row first, then every
+staged change, with the full primer text rather than a summary - and that is where
+the turn ends.
+
+> yes, go
+
+Expected: applied in order, each write asserting the deck id from the Deck row,
+each save verified by re-reading, final report with the deck URL and the deck's
+current visibility. Two beats, and the second one is a separate user turn.
 
 ## 2. Trigger without the word "Moxfield"
 
@@ -65,8 +71,10 @@ deck id, then drafts hub suggestions and waits. Visibility stays private.
 > No, those names don't mean anything. I want to see the archetype in the name.
 
 Expected: recognised as a skill-level rule, not deck-specific taste; applied
-immediately in the next shortlist; appended to `feedback/LEARNINGS.md`; a
-copy-paste improvement brief produced for `references/deck-naming.md`.
+immediately in the next shortlist; recorded in the assistant's own persistent
+memory, with the user told where it went. **No improvement brief**, and nothing
+proposed upstream: naming register is the archetypal personal preference, and
+`references/feedback-loop.md` is explicit that those stay local.
 
 The user often writes in French. The conversation may follow them there, but deck
 names, descriptions and primers stay in English - worth re-running this scenario
