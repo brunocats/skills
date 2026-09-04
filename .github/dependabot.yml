@@ -1,0 +1,7 @@
+# Action pins go stale, and a stale pin is a pin to a version with known issues.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly

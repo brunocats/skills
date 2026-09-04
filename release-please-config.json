@@ -1,0 +1,19 @@
+{
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "separate-pull-requests": true,
+  "packages": {
+    "mtg/mtg-moxfield-publish": {
+      "release-type": "simple",
+      "package-name": "mtg-moxfield-publish",
+      "include-component-in-tag": true,
+      "changelog-path": "CHANGELOG.md",
+      "changelog-sections": [
+        { "type": "feat", "section": "Added" },
+        { "type": "fix", "section": "Fixed" },
+        { "type": "docs", "section": "Documentation" },
+        { "type": "refactor", "section": "Changed" },
+        { "type": "chore", "section": "Housekeeping", "hidden": true }
+      ]
+    }
+  }
+}

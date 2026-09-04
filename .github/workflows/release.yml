@@ -1,0 +1,26 @@
+# Releases are automated. Merging a pull request into main updates a standing
+# "release PR" carrying the version bump and the generated changelog; merging
+# that release PR tags the skill and publishes a GitHub release.
+#
+# The maintainer's only action is merging the release PR when the accumulated
+# changes are worth publishing. See docs/releasing.md.
+
+name: release
+
+on:
+  push:
+    branches: [main]
+
+permissions: {}
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: googleapis/release-please-action@v4
+        with:
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json

@@ -1,0 +1,8 @@
+# Advisory ownership. The enforcement lives in the repository ruleset
+# (docs/repository-setup.md); this makes the boundary visible in the diff view
+# and requests review automatically.
+
+*                       @brunocats
+/*/*/SKILL.md           @brunocats
+/*/*/feedback/          @brunocats
+/.github/               @brunocats
