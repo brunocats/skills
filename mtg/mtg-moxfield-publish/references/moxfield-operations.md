@@ -135,6 +135,12 @@ point it at another deck. Park the id next to the text (`window.__D`), check
 wrote to as part of the verification, so the report names the object rather than
 assuming it.
 
+**Re-park it after any real navigation.** A `navigate` or a reload throws away the
+page context, taking `window.__D` and `window.__P` with it - which is exactly what
+the read-back at the end of a primer publish does. In-app routing keeps them; a
+reload does not. If anything is going to be written after a reload, set the id
+again first, in the same call.
+
 ### The shape of a cheap operation
 
 ```js

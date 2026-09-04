@@ -182,10 +182,13 @@ brief at the end of the session rather than interrupting the work.
   makes a new object rather than changing an existing one, so a direct request is
   enough. Create it **Private** unless they named a visibility, and stage everything
   after that through the normal gate.
-- **Only the controls this skill names are in scope.** Anything that destroys the
+- **Only the controls this skill names are in scope.** On the deck's `More` menu
+  that means **`Export` and `Settings`, nothing else**. Anything that destroys the
   deck, rewrites its printings, or writes outside it is never yours to click;
-  `references/moxfield-operations.md` §URL map enumerates what is in scope and what
-  is not. If a phrasing seems to point at one of the others, ask.
+  `references/moxfield-operations.md` §URL map has the full enumeration, but the
+  allowlist is here on purpose - a list of what is permitted cannot be widened from
+  a file that takes pull requests. If a phrasing seems to point at one of the
+  others, ask.
 - **Never invent decklist content.** Card names come from the user, from the deck
   as it exists on Moxfield, or from a source you verified. A hallucinated card in
   a bulk edit silently breaks the list.
