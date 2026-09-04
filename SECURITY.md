@@ -104,8 +104,8 @@ not remove it.
 
 Three specific gaps, named rather than papered over:
 
-- **The policy check reads added lines, not removed ones.** A pull request that
-  *deletes* a safety sentence from a reference file passes it clean. Only human
+- **The policy check reads added lines, not removed ones.** Deleting or renaming a
+  whole markdown file is refused; deleting a *sentence* from one is not. Only human
   review catches that, which is why the whole diff gets read.
 - **The host check needs a scheme.** A bare `example.com/path` in prose is not
   matched. It would be caught by review, not by CI.

@@ -41,8 +41,8 @@ assistant's memory, not in this repository.
 Skills run with the user's browser and accounts, so the contributable surface is
 deliberately narrow. [SECURITY.md](SECURITY.md) explains why.
 
-**Open to pull requests:** `references/*.md` in any skill, and the documentation at
-the repository root.
+**Open to pull requests:** `references/*.md` in any skill, and the documentation in
+`docs/` and at the repository root.
 
 **Maintainer-only:** any `SKILL.md`, anything under `.github/`, any non-markdown
 file, any file over 1 MB, and any new link to a host not already named in this

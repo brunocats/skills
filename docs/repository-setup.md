@@ -14,8 +14,11 @@ maintainer can still edit protected paths directly).
 Enable:
 
 - **Require a pull request before merging.** Nothing reaches `main` without a diff
-  to read. Set **Required approvals** to 0 and tick **Require review from Code
+  to read. Set **Required approvals** to 1 and tick **Require review from Code
   Owners** - that is what turns `.github/CODEOWNERS` from a hint into a gate.
+  Whether the code-owner requirement holds on its own with zero required approvals
+  is not documented either way, so do not rely on it; 1 is unambiguous, and it
+  costs nothing given every line gets read anyway.
 - **Require status checks to pass** - select `Agent Skill scan`, `Repository
   policy`, `zizmor` and `pr title`. Each of those is the *job* name, which is what
   a check reports as; the workflow name is not.
@@ -73,3 +76,8 @@ fork** and check:
 - The `pr title` check appears and reports against the pull request's head commit.
   It runs on `pull_request_target`, which is necessary for the action to read a
   fork's title at all.
+- The `zizmor` job **fails** on a finding. `advanced-security: false` is set for
+  exactly that reason, but the action's documentation only states that the
+  Advanced Security mode does *not* fail - it does not state the inverse. Confirm
+  it by temporarily unpinning an action on the test branch and checking the job
+  goes red.
