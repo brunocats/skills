@@ -44,12 +44,16 @@ deliberately narrow. [SECURITY.md](SECURITY.md) explains why.
 **Open to pull requests:** `references/*.md` in any skill, and the documentation in
 `docs/` and at the repository root.
 
-**Maintainer-only:** any `SKILL.md`, anything under `.github/`, any non-markdown
+**Maintainer-only:** any `SKILL.md`, `AGENTS.md`, anything under `.github/`, any non-markdown
 file, any file over 1 MB, and any new link to a host not already named in this
 repository. These are refused by the `Repository policy` check, which is a
 required status check - so a pull request touching them cannot be merged, whatever
 a reviewer thinks of it. If you believe such a change is genuinely needed, open a
 pull request against a reference file making the case, and say so plainly.
+
+[AGENTS.md](AGENTS.md) writes down the commit conventions and what never gets
+committed. It is instructions to an assistant, which is why it is maintainer-only
+like a `SKILL.md`.
 
 `SKILL.md` also governs by precedence: where a reference file contradicts it,
 `SKILL.md` wins. A change to a reference file cannot loosen a rule that lives
