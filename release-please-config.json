@@ -5,6 +5,7 @@
     "mtg/mtg-moxfield-publish": {
       "release-type": "simple",
       "package-name": "mtg-moxfield-publish",
+      "initial-version": "0.1.0",
       "include-component-in-tag": true,
       "changelog-path": "CHANGELOG.md",
       "changelog-sections": [
