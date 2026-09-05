@@ -48,7 +48,9 @@ place to be vague about it.
   written while diagnosing something. Delete them; do not rely on them being
   untracked.
 - Anything that is not markdown. The policy check refuses it, symbolic links
-  included, and the only exemptions are the two files release automation writes.
+  included. The only exemptions are the two files release automation writes and a
+  skill's eval fixture, which is exempt because `evals/` is refused wholesale
+  rather than by extension.
 - A new link to a host not already named in the repository, and any raw-file or
   release-download URL even on a host that is allowed.
 - Invisible characters. The check refuses every `Cf` codepoint, the Unicode Tags
@@ -56,9 +58,9 @@ place to be vague about it.
 
 ## What you may not change
 
-`SKILL.md`, anything under `.github/`, and this file are maintainer-only. They are
-refused by the `Repository policy` check, not by a reviewer's judgement, so a pull
-request touching them cannot merge. `references/*.md` and the documentation are
+`SKILL.md`, a skill's `evals/`, anything under `.github/`, and this file are
+maintainer-only. They are refused by the `Repository policy` check, not by a
+reviewer's judgement, so a pull request touching them cannot merge. `references/*.md` and the documentation are
 the contributable surface - see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 A skill's `SKILL.md` governs by precedence: where a reference file contradicts it,

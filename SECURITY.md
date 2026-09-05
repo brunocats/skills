@@ -41,12 +41,16 @@ page or a comment. Merged repository content is trusted by definition.
 
 ## What is enforced
 
-**Skills here contain no executable code.** Only markdown. This removes the
-bundled-script class entirely rather than mitigating it.
+**Skills here contain no executable code.** A skill is a `SKILL.md`, the
+`references/` it loads on demand, and an `evals/` directory holding the suite that
+tests it. That is markdown throughout, apart from the eval fixture's JSON, which is
+data read by a test harness and never by the assistant. Nothing in a skill runs,
+which removes the bundled-script class entirely rather than mitigating it.
 
 **The dangerous surface is not open to contributions.** Every skill's `SKILL.md` -
-its workflow and all of its safety rules - and the CI configuration are refused by
-the `Repository policy` check, which is a required status check on `main`.
+its workflow and all of its safety rules - its `evals/`, and the CI configuration
+are refused by the `Repository policy` check, which is a required status check on
+`main`.
 Contributions land in `references/*.md` and documentation, where a wrong claim is a
 factual argument anyone can settle. `SKILL.md` also governs by precedence: where a
 reference file contradicts it, `SKILL.md` wins, so a change to the contributable
@@ -80,8 +84,11 @@ pinned to a commit SHA and updated by Dependabot; the one dependency installed a
 runtime is pinned to an exact version inside the workflow file; workflow
 permissions default to none and are granted per job.
 
-**Markdown only, and nothing large.** Any file that is not `.md` - a script, a
-binary, an archive - fails the policy check, as does any file over 1 MB.
+**Markdown only, and nothing large.** Everywhere a contributor can reach, any file
+that is not `.md` - a script, a binary, an archive - fails the policy check, as does
+any file over 1 MB. The single non-markdown file in a skill is its eval fixture,
+which lives under `evals/` and is refused from pull requests outright, so the rule
+holds without an extension exemption that a later skill could grow into.
 
 **No new outbound hosts.** Documentation links to hosts already named in the
 repository are fine; a new host in a diff is blocked pending review, because a
