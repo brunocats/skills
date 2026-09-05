@@ -12,11 +12,11 @@ outlive the session and steer every future one.
 
 Two different things arrive in the same words.
 
-- **Deck-specific taste** - "call this one something darker", "drop the sideboard
-  guide for this deck". Applies here, does not generalise. Just do it.
-- **A skill-level rule** - "that name doesn't mean anything", "your Synergies & Traps sections
-  are always filler", "stop asking me twice before pushing". Describes how you
-  work, and would apply to the next deck too.
+- **Deck-specific taste** - "call this one something darker", "drop the
+  sideboard guide for this deck". Applies here, does not generalise. Just do it.
+  - **A skill-level rule** - "that name doesn't mean anything", "your Synergies
+  & Traps sections are always filler", "stop asking me twice before pushing".
+  Describes how you work, and would apply to the next deck too.
 
 The test: **would this change what I do on a completely different deck?** If yes,
 it is a rule. If it is genuinely ambiguous, ask once, in one line - *"is that for

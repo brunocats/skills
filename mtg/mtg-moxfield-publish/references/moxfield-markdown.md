@@ -7,12 +7,13 @@ reading the deck. So: compose here, then always check **Preview** in the editor.
 
 ## Contents
 
-- [The one that bites everyone: mana symbols](#the-one-that-bites-everyone-mana-symbols)
-- [Card links](#card-links)
-- [Standard Markdown that works](#standard-markdown-that-works)
-- [Moxfield-only constructs](#moxfield-only-constructs)
-- [Collapsible panels and the table of contents](#collapsible-panels-and-the-table-of-contents)
-- [Structuring a primer](#structuring-a-primer)
+- [The one that bites everyone: mana
+  symbols](#the-one-that-bites-everyone-mana-symbols) - [Card
+  links](#card-links) - [Standard Markdown that
+  works](#standard-markdown-that-works) - [Moxfield-only
+  constructs](#moxfield-only-constructs) - [Collapsible panels and the table of
+  contents](#collapsible-panels-and-the-table-of-contents) - [Structuring a
+  primer](#structuring-a-primer)
 
 ## The one that bites everyone: mana symbols
 

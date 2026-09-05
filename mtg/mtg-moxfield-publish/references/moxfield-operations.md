@@ -362,11 +362,11 @@ name anchors on, so the box and the title agree.
 
 Folders are the user's private filing on `/decks/personal` (e.g., "Pioneer",
 "Commander", "Proxies", etc.) - freely named, invisible to everyone else, and
-unrelated to hubs. `+ New Folder` creates one, but only when the user has asked for
-that folder by name. A deck is moved from the per-row menu on that page. Find the row by its
-`/decks/<id>` link, never by the name shown on it - two decks can share a name -
-and read the menu rather than clicking a remembered position, because its wording
-changes.
+unrelated to hubs. `+ New Folder` creates one, but only when the user has asked
+for that folder by name. A deck is moved from the per-row menu on that page.
+Find the row by its `/decks/<id>` link, never by the name shown on it - two
+decks can share a name - and read the menu rather than clicking a remembered
+position, because its wording changes.
 
 A folder move is private rather than public, but it is still a write to the user's
 account: it goes in the ledger and through the same gate as everything else, and
@@ -382,13 +382,13 @@ symbol), then the editor body, then **Cancel** / **Save Primer**.
 Workflow that avoids pain:
 
 1. Read the existing source first (the editor shows raw source, not rendered).
-2. Compose the new primer in the chat and get it approved there.
-3. Put the text in - see `references/text-injection.md`, which also covers why a
-   save can look successful and not be - then click **Preview** and read the
-   rendered result. `Preview` toggles in place and becomes `Back to Edit`. Preview is the only reliable check that your syntax works -
-   card links, symbols, accordions and centring all fail *silently* as literal
-   text if the syntax is off.
-4. Click **Back to Edit**, then **Save Primer**.
+   2. Compose the new primer in the chat and get it approved there. 3. Put the
+   text in - see `references/text-injection.md`, which also covers why a save
+   can look successful and not be - then click **Preview** and read the rendered
+   result. `Preview` toggles in place and becomes `Back to Edit`. Preview is the
+   only reliable check that your syntax works - card links, symbols, accordions
+   and centring all fail *silently* as literal text if the syntax is off. 4.
+   Click **Back to Edit**, then **Save Primer**.
 
 `Cancel` discards the buffer, so an unsaved experiment costs nothing. Nothing is
 saved until **Save Primer** is clicked - which also means a session that ends with

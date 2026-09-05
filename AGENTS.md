@@ -42,6 +42,22 @@ If an assistant made the change, say so in a `Co-Authored-By:` trailer. This
 repository is explicit about how its contents were produced; a commit is not the
 place to be vague about it.
 
+## Line wrapping
+
+Prose is hard wrapped. Wrap new text at **80** columns; existing lines run to 88,
+which is fine and not worth a reflow on its own.
+
+Two rules that matter more than the number:
+
+- **Re-wrap the whole paragraph after editing it**, never just the line you
+  touched. A 130-character line sitting between 70-character ones is the
+  signature of an edit that skipped this, and it is what makes a diff unreadable.
+- **Never reflow a paragraph you are not otherwise changing.** A wrapping-only
+  diff buries the change that matters.
+
+Exempt, because splitting them changes meaning or breaks rendering: YAML
+frontmatter, tables, fenced code, and any line long because of a URL.
+
 ## What never gets committed
 
 - Scratch of any kind: helper scripts, logs, `.sarif` output, scratch files
@@ -60,8 +76,9 @@ place to be vague about it.
 
 `SKILL.md`, a skill's `evals/`, anything under `.github/`, and this file are
 maintainer-only. They are refused by the `Repository policy` check, not by a
-reviewer's judgement, so a pull request touching them cannot merge. `references/*.md` and the documentation are
-the contributable surface - see [CONTRIBUTING.md](CONTRIBUTING.md).
+reviewer's judgement, so a pull request touching them cannot merge.
+`references/*.md` and the documentation are the contributable surface - see
+[CONTRIBUTING.md](CONTRIBUTING.md).
 
 A skill's `SKILL.md` governs by precedence: where a reference file contradicts it,
 `SKILL.md` wins. Never propose a change that weakens a rule in its non-negotiables

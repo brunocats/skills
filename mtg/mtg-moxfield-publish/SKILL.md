@@ -37,8 +37,8 @@ they just told you. Otherwise `references/moxfield-operations.md` §Reading the
 current state of a deck says which single page answers which question.
 
 Then summarise the deck in a few lines and offer the menu - decklist, name,
-description, image, hubs, folder, visibility, primer - and wait. Suggesting one obvious next
-step is helpful; doing all of them unasked is not.
+description, image, hubs, folder, visibility, primer - and wait. Suggesting one
+obvious next step is helpful; doing all of them unasked is not.
 
 If the user says "do the lot" without naming an order, work in the order below.
 It is the order the dependencies fall in: the list defines what the deck *is*, so
@@ -99,8 +99,8 @@ Moxfield's dialect is not plain Markdown, and mistaking `===accordion` blocks fo
 content will make you rewrite structure the user wanted.
 
 Write deck names, descriptions and primers in **English**, regardless of the
-language of the conversation. Moxfield's audience is largely English-speaking, and English is
-what makes a deck findable.
+language of the conversation. Moxfield's audience is largely English-speaking,
+and English is what makes a deck findable.
 
 ## 4. Push the changes
 
@@ -133,26 +133,24 @@ Once instructed:
 1. **Restate exactly what will change, then take one go-ahead.** Show the ledger
    scoped to what they asked for, with the full final text of any primer or
    decklist - not a summary of it. One yes covers the whole set; do not ask per
-   field.
-2. **Honour the scope.** "Change the primer and the hubs but not the name" means
-   the name stays staged and unsent. Apply exactly the named subset, and say at the
-   end what you left pending.
-3. **Handle visibility on request, and report it afterwards.** If the user names a
-   visibility, stage it and say out loud what it does - private to public exposes
-   the deck, public to private breaks links they may have shared. If they say
-   nothing, do not spend a page load reading it before the ledger; instead read it
-   during the post-publish verification and name it in the final report, e.g. *"the
-   deck is public, in case you want to change that."*
-4. **Apply in the same order as the work**, each per
-   `references/moxfield-operations.md`: decklist bulk edit -> settings (name,
-   description, visibility, format), deck image, hubs, folder -> primer. The decklist goes first because the image picker
-   only offers cards that are in the deck, so a new card has to land before it can
-   become the banner. The primer goes last because it is the longest step and the
-   most annoying to redo if something earlier fails.
-5. **Verify, then report.** After each save, re-read the page and check the change
-   actually landed - Moxfield is a heavy single-page app and a click that looks
-   like it worked sometimes did not. Report what is live, with the deck URL and the
-   deck's visibility.
+   field. 2. **Honour the scope.** "Change the primer and the hubs but not the
+   name" means the name stays staged and unsent. Apply exactly the named subset,
+   and say at the end what you left pending. 3. **Handle visibility on request,
+   and report it afterwards.** If the user names a visibility, stage it and say
+   out loud what it does - private to public exposes the deck, public to private
+   breaks links they may have shared. If they say nothing, do not spend a page
+   load reading it before the ledger; instead read it during the post-publish
+   verification and name it in the final report, e.g. *"the deck is public, in
+   case you want to change that."* 4. **Apply in the same order as the work**,
+   each per `references/moxfield-operations.md`: decklist bulk edit -> settings
+   (name, description, visibility, format), deck image, hubs, folder -> primer.
+   The decklist goes first because the image picker only offers cards that are
+   in the deck, so a new card has to land before it can become the banner. The
+   primer goes last because it is the longest step and the most annoying to redo
+   if something earlier fails. 5. **Verify, then report.** After each save,
+   re-read the page and check the change actually landed - Moxfield is a heavy
+   single-page app and a click that looks like it worked sometimes did not.
+   Report what is live, with the deck URL and the deck's visibility.
 
 If a step fails, stop and say so. Do not retry the same click a third time, and
 do not push the remaining steps as if nothing happened - a half-applied change

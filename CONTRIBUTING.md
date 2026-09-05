@@ -45,11 +45,12 @@ deliberately narrow. [SECURITY.md](SECURITY.md) explains why.
 `docs/` and at the repository root.
 
 **Maintainer-only:** any `SKILL.md`, any skill's `evals/`, `AGENTS.md`, anything
-under `.github/`, any non-markdown file, any file over 1 MB, and any new link to a
-host not already named in this repository. These are refused by the `Repository policy` check, which is a
-required status check - so a pull request touching them cannot be merged, whatever
-a reviewer thinks of it. If you believe such a change is genuinely needed, open a
-pull request against a reference file making the case, and say so plainly.
+under `.github/`, any non-markdown file, any file over 1 MB, and any new link to
+a host not already named in this repository. These are refused by the
+`Repository policy` check, which is a required status check - so a pull request
+touching them cannot be merged, whatever a reviewer thinks of it. If you believe
+such a change is genuinely needed, open a pull request against a reference file
+making the case, and say so plainly.
 
 [AGENTS.md](AGENTS.md) writes down the commit conventions and what never gets
 committed. It is instructions to an assistant, which is why it is maintainer-only

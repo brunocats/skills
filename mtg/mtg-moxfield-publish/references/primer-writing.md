@@ -79,11 +79,12 @@ section entirely if they give you nothing:
   and a primer is often published before the deck has been assembled. In that case
   nobody knows yet, including the user.
 
-**Never open with questions.** "Write the primer", with nothing else attached, is a
-complete instruction: draft all four sections you own, in full, and deliver them.
-Then - in the *same* message, after the draft - ask for the two user-owned sections
-in one line, and offer the flavour opening. Reacting to a finished draft is fast; answering questions before seeing
-anything is work the user did not ask for, and it stalls the thing they wanted.
+**Never open with questions.** "Write the primer", with nothing else attached,
+is a complete instruction: draft all four sections you own, in full, and deliver
+them. Then - in the *same* message, after the draft - ask for the two user-owned
+sections in one line, and offer the flavour opening. Reacting to a finished
+draft is fast; answering questions before seeing anything is work the user did
+not ask for, and it stalls the thing they wanted.
 
 A primer with four strong sections is finished work. It can be published exactly as
 it stands; the other two are improvements waiting on the user, not holes. A
@@ -425,8 +426,9 @@ an outline, agree on it, and write it under the same tone rules. If it turns out
 restate the Gameplan, say so and propose folding it in.
 
 Once a primer runs past four sections, wrap them in Moxfield accordion panels so
-the reader gets a table of contents - see `references/moxfield-markdown.md`. With the two
-user-supplied sections filled in, most primers will cross that line.
+the reader gets a table of contents - see `references/moxfield-markdown.md`.
+With the two user-supplied sections filled in, most primers will cross that
+line.
 
 ## The cut test
 
@@ -457,10 +459,12 @@ A primer that survives this is short. That is correct.
 
 Show the draft in the chat as a **single fenced markdown block** ending with the
 credit line, so the user can read it as source and copy it if they want it
-elsewhere. The Notable Exclusions ask goes *after* the block, not inside it. Take their edits there -
-the Moxfield editor is a poor place to iterate. It only goes to Moxfield when they
-ask to push, and then per `references/moxfield-operations.md`.
+elsewhere. The Notable Exclusions ask goes *after* the block, not inside it.
+Take their edits there - the Moxfield editor is a poor place to iterate. It only
+goes to Moxfield when they ask to push, and then per
+`references/moxfield-operations.md`.
 
 When revising a primer that already exists, read the current source first and
-**keep what is good**. A user asking for a better Synergies & Traps section wants a better one, not a new primer that quietly discards the paragraph they were proud of.
-Show the change as a before/after on the parts that moved.
+**keep what is good**. A user asking for a better Synergies & Traps section
+wants a better one, not a new primer that quietly discards the paragraph they
+were proud of. Show the change as a before/after on the parts that moved.

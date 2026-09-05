@@ -108,11 +108,12 @@ For a `<select>` (the deck image picker) the same trick works with
 
 ## Always read back before saving
 
-For a primer, click **Preview** and confirm the rendering, not just the text: card
-links become links, mana symbols become symbols, and no `[[` or `===` survives. An
-empty preview means the text never reached the editor's model. For a board, count
-the lines and check the first and last. Silent truncation and a mangled first line are the common failures,
-and both are invisible until someone opens the deck.
+For a primer, click **Preview** and confirm the rendering, not just the text:
+card links become links, mana symbols become symbols, and no `[[` or `===`
+survives. An empty preview means the text never reached the editor's model. For
+a board, count the lines and check the first and last. Silent truncation and a
+mangled first line are the common failures, and both are invisible until someone
+opens the deck.
 
 **Saving the primer gives no visible confirmation** - the editor stays open and
 looks unchanged whether or not the save landed. The only reliable check is to
