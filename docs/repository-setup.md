@@ -14,11 +14,11 @@ maintainer can still edit protected paths directly).
 Enable:
 
 - **Require a pull request before merging.** Nothing reaches `main` without a diff
-  to read. Set **Required approvals** to 1 and tick **Require review from Code
-  Owners** - that is what turns `.github/CODEOWNERS` from a hint into a gate.
-  Whether the code-owner requirement holds on its own with zero required approvals
-  is not documented either way, so do not rely on it; 1 is unambiguous, and it
-  costs nothing given every line gets read anyway.
+  to read. Set **Required approvals** to **1** *and* tick **Require review from
+  Code Owners**. Both, not either: the code-owner requirement is silently inert
+  while required approvals is 0, which is recorded at the top of
+  [`.github/CODEOWNERS`](../.github/CODEOWNERS). The owner is in the bypass list,
+  so this gates contributors and costs the maintainer nothing.
 - **Require status checks to pass** - select `Agent Skill scan`, `Repository
   policy`, `zizmor` and `pr title`. Each of those is the *job* name, which is what
   a check reports as; the workflow name is not.
@@ -66,9 +66,14 @@ those titles - see [releasing.md](releasing.md).
 
 ## Verify it before announcing the repository
 
-Two behaviours cannot be confirmed from the settings pages, and both decide whether
-outside contributions can merge at all. Open one throwaway pull request **from a
-fork** and check:
+First, re-read one number in the ruleset: **Required approvals**. A ticked "Require
+review from Code Owners" next to a 0 there looks like a configured gate and is not
+one, and nothing in CI will tell you. It is the only control on this page that can
+fail silently while appearing correct.
+
+Then two behaviours that cannot be confirmed from the settings pages at all, both
+of which decide whether outside contributions can merge. Open one throwaway pull
+request **from a fork** and check:
 
 - The `Agent Skill scan` job passes. On a fork pull request the `GITHUB_TOKEN` is
   read-only whatever the workflow requests, so the SARIF upload is skipped by
