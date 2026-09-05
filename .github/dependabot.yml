@@ -1,7 +1,15 @@
 # Action pins go stale, and a stale pin is a pin to a version with known issues.
+# A pin is also only as good as the release it names, so updates wait out a
+# cooldown: a freshly published version that turns out to be compromised is
+# usually caught within a week, and nothing here is urgent enough to need it
+# sooner. zizmor's `dependabot-cooldown` audit fails the build below 7 days.
 version: 2
 updates:
   - package-ecosystem: github-actions
     directory: /
     schedule:
       interval: monthly
+    cooldown:
+      default-days: 7
+    commit-message:
+      prefix: chore
