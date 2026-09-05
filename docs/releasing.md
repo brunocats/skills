@@ -57,9 +57,12 @@ If you edit a contributor's title while squashing, that edited title is what cou
 
 ## First release
 
-The manifest is seeded at `0.0.0`, so the first `feat:` produces `0.1.0`. To go
-straight to `1.0.0`, put `Release-As: 1.0.0` in the body of any commit before
-merging the release pull request.
+A `0.0.0` entry in the manifest means *never released*, so release-please does not
+derive the first version from conventional commits at all - it proposes the
+strategy's initial version, which for `simple` is **1.0.0**. `Release-As:` is not
+involved. To start lower, add `"initial-version": "0.1.0"` to the package block in
+`release-please-config.json`, then close the open release pull request and let the
+next push regenerate it.
 
 ## One-time setup
 
@@ -67,17 +70,24 @@ merging the release pull request.
   default commit message set to **Pull request title**.
 - Nothing else. release-please runs on `GITHUB_TOKEN`.
 
-Pull requests opened by `GITHUB_TOKEN` do not trigger other workflows, so the
-safety checks do not run on the release pull request itself. That is expected - its
-contents are generated from commits that were already checked - and the maintainer
-is in the ruleset bypass list, so required checks do not block merging it. If you
-would rather they ran, create a fine-grained personal access token with contents
-and pull-requests write, store it as a secret, and pass it to the action as `token:`.
+A pull request opened by `GITHUB_TOKEN` does not fire the `opened` event for other
+workflows, so the release pull request is missing at least one required check:
+`pr title` runs on `pull_request_target`, which is never fired for it, so that
+check stays permanently pending. The others have been observed reporting normally.
+The pull request therefore shows as blocked, and the maintainer merges it with
+**"Merge without waiting for requirements to be met"**, which the ruleset bypass
+allows. That is expected - its contents are generated from commits that were
+already checked. If you would rather every check ran, create a fine-grained
+personal access token with contents and pull-requests write, store it as a secret,
+and pass it to the action as `token:`.
 
 ## What release-please writes
 
-The `simple` release type maintains a `version.txt` alongside `CHANGELOG.md` in the
-skill's folder. Both are non-markdown or automation-owned files inside a folder
+The `simple` release type maintains a `version.txt` in the package folder **only if
+one already exists**; none does here, so the release pull request touches just
+`.release-please-manifest.json` and the skill's `CHANGELOG.md`. The policy check
+exempts `version.txt` anyway, as insurance if one is ever added. Both are
+non-markdown or automation-owned files inside a folder
 that is otherwise markdown only, so the `Repository policy` check exempts them by
 name. If you add a package, keep that exemption list in
 `.github/workflows/skill-safety.yml` in step with it.
