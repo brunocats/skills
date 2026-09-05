@@ -1,14 +1,16 @@
 # Advisory ownership: this requests review automatically and makes the boundary
-# visible in the diff view. It is NOT a gate. With Required approvals set to 0,
-# GitHub does not enforce "Require review from Code Owners" - observed on five
-# pull requests, every one reporting an empty reviewDecision. The hard refusal of
-# these paths is the `Repository policy` check. Set Required approvals to 1 in the
-# ruleset if you want the review requirement to bite as well.
+# visible in the diff view. On its own it is NOT a gate. With Required approvals
+# set to 0, GitHub does not enforce "Require review from Code Owners" - observed
+# on five pull requests, every one reporting an empty reviewDecision. This file is
+# the record of that behaviour; docs/repository-setup.md is where the setting it
+# requires is written down. The hard refusal of these paths does not depend on
+# either: it is the `Repository policy` check.
 #
 # Patterns without a slash match at any depth, so a skill added at a different
 # nesting level is still covered.
 
 *                       @brunocats
 SKILL.md                @brunocats
+evals/                  @brunocats
 /AGENTS.md              @brunocats
 /.github/               @brunocats

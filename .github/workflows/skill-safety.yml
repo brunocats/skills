@@ -120,10 +120,22 @@ jobs:
           # AGENTS.md is instructions to an assistant working in this repository,
           # so it is the same class of surface as a SKILL.md and is refused from
           # pull requests for the same reason.
+          #
+          # A skill's evals/ directory is the test suite for its SKILL.md. It is
+          # maintainer-only for the same reason, and it is the one place in a
+          # skill where a non-markdown file is expected - the eval fixture is JSON
+          # read by a harness, never by the assistant. Refusing the directory
+          # outright is what keeps "markdown only" true of everything a
+          # contributor can reach, rather than carving a JSON exemption into the
+          # extension rule where any skill could then acquire one. Matched at any
+          # depth, so a skill added at a different nesting level is still covered.
+          EVALS = re.compile(r"(^|/)evals/")
+
           def protected(p):
               return (bool(re.search(r"(^|/)SKILL\.md$", p))
                       or p.startswith(".github/")
-                      or p == "AGENTS.md")
+                      or p == "AGENTS.md"
+                      or EVALS.search(p) is not None)
 
           # Characters that make the rendered diff differ from the text an
           # assistant reads. Category Cf covers zero-width, soft hyphen, the
@@ -165,6 +177,9 @@ jobs:
                       refused.add(p)
                   elif p == "AGENTS.md":
                       fails.append(f"{p}: instructions to an assistant are maintainer-only")
+                      refused.add(p)
+                  elif EVALS.search(p):
+                      fails.append(f"{p}: a skill's evals are maintainer-only - see CONTRIBUTING.md")
                       refused.add(p)
 
               for p in removed:
