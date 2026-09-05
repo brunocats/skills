@@ -117,8 +117,13 @@ jobs:
               return (p == ".release-please-manifest.json"
                       or re.fullmatch(r"[^/]+/[^/]+/version\.txt", p) is not None)
 
+          # AGENTS.md is instructions to an assistant working in this repository,
+          # so it is the same class of surface as a SKILL.md and is refused from
+          # pull requests for the same reason.
           def protected(p):
-              return bool(re.search(r"(^|/)SKILL\.md$", p)) or p.startswith(".github/")
+              return (bool(re.search(r"(^|/)SKILL\.md$", p))
+                      or p.startswith(".github/")
+                      or p == "AGENTS.md")
 
           # Characters that make the rendered diff differ from the text an
           # assistant reads. Category Cf covers zero-width, soft hyphen, the
@@ -157,6 +162,9 @@ jobs:
                       refused.add(p)
                   elif p.startswith(".github/"):
                       fails.append(f"{p}: CI configuration is maintainer-only")
+                      refused.add(p)
+                  elif p == "AGENTS.md":
+                      fails.append(f"{p}: instructions to an assistant are maintainer-only")
                       refused.add(p)
 
               for p in removed:

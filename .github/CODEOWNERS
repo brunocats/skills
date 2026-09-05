@@ -1,11 +1,14 @@
-# Advisory ownership, made real by "Require review from Code Owners" on the branch
-# ruleset (docs/repository-setup.md). The hard refusal of these paths lives in the
-# `Repository policy` check; this makes the boundary visible in the diff view and
-# requests review automatically.
+# Advisory ownership: this requests review automatically and makes the boundary
+# visible in the diff view. It is NOT a gate. With Required approvals set to 0,
+# GitHub does not enforce "Require review from Code Owners" - observed on five
+# pull requests, every one reporting an empty reviewDecision. The hard refusal of
+# these paths is the `Repository policy` check. Set Required approvals to 1 in the
+# ruleset if you want the review requirement to bite as well.
 #
 # Patterns without a slash match at any depth, so a skill added at a different
 # nesting level is still covered.
 
 *                       @brunocats
 SKILL.md                @brunocats
+/AGENTS.md              @brunocats
 /.github/               @brunocats
