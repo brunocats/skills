@@ -40,15 +40,30 @@ jobs:
           scopes: |
             mtg-deck-publish
           requireScope: false
-          # Dependabot titles its own pull requests, and cannot be made to match
-          # this convention reliably - it writes an unknown `deps` scope and a
-          # capitalised subject. Its commits are `chore` and hidden from the
-          # changelog, so there is nothing for this check to protect there.
-          # Only a maintainer can label a pull request, so this is not a bypass
-          # a contributor can reach. `labeled`/`unlabeled` are in the trigger
-          # list above because the label may arrive after the PR is opened.
+          # Two bots title their own pull requests and cannot be made to match
+          # this convention.
+          #
+          # Dependabot writes an unknown `deps` scope and a capitalised subject.
+          # Its commits are `chore` and hidden from the changelog, so there is
+          # nothing for this check to protect there.
+          #
+          # release-please writes `chore(main): release <package> <version>` -
+          # `main` is its own fixed convention for the branch it releases from,
+          # not a scope, and it is not configurable without fighting the tool.
+          # Adding `main` to the scope list above would have been the other fix
+          # and a worse one: it would let any contributor pass with a scope that
+          # names nothing. The release pull request's title never reaches the
+          # changelog either - release-please writes the changelog itself, from
+          # the commits already on main.
+          #
+          # Only a maintainer or the bot itself can label a pull request, so
+          # neither entry is a bypass a contributor can reach. `labeled` and
+          # `unlabeled` are in the trigger list above because the label may
+          # arrive after the pull request is opened - which is exactly what
+          # happens with `autorelease: pending`.
           ignoreLabels: |
             dependencies
+            autorelease: pending
           subjectPattern: ^(?![A-Z]).+$
           subjectPatternError: |
             The subject "{subject}" should start with a lowercase letter.
