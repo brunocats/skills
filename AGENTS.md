@@ -16,11 +16,11 @@ squash-merges on the pull request title, so for a contribution the **title** is
 the commit message that counts.
 
 ```
-feat(mtg-moxfield-publish): add a mulligan section to the primer
-fix(mtg-moxfield-publish): correct the bulk edit board description
+feat(mtg-deck-publish): add a mulligan section to the primer
+fix(mtg-deck-publish): correct the bulk edit board description
 docs: correct what release-please actually does
 ci: pin the scanner to an exact version
-chore(mtg-moxfield-publish): retype a pre-release edit
+chore(mtg-deck-publish): retype a pre-release edit
 ```
 
 - **Types:** `feat`, `fix`, `docs`, `refactor`, `ci`, `chore`. Nothing else passes
@@ -84,6 +84,25 @@ A skill's `SKILL.md` governs by precedence: where a reference file contradicts i
 `SKILL.md` wins. Never propose a change that weakens a rule in its non-negotiables
 - the publish gate, card-name verification, reading a board before writing it.
 Those are the point of the skill, not friction to file down.
+
+## Names that are published, and cannot be taken back
+
+A skill that writes into someone else's page publishes whatever URL it puts
+there, into pages nobody can go back and fix. GitHub redirects a renamed
+repository but *not* a moved path inside one, so any path segment such a URL
+names is frozen from the day the first page carries it.
+
+So a published URL points at the shallowest thing that answers the question -
+today that is `mtg/`, named by the credit line in every primer. **Do not deepen
+one to be more precise**, and do not rename or nest a directory a published URL
+names. Everything below that point stays free to move, which is the whole reason
+the line stops there.
+
+The reverse also holds: nothing a skill is named after should be a third-party
+site, unless the skill is permanently bound to that one site. A name like
+`mtg-deck-publish` survives a second site, e.g., Archidekt, MTG Goldfish, etc.;
+a name that carries a vendor has to be renamed to tell the truth, and renaming
+is what breaks links.
 
 ## Pushing and releasing
 
