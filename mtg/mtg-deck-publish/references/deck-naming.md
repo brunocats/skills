@@ -89,4 +89,11 @@ not about that one name - handle it per `references/feedback-loop.md` so it stic
 
 Writing the description is the step straight after the name, and what it has to
 be is set by the site: how long it may run, where it renders, and what the page
-already shows around it. `references/sites/moxfield/description.md` for Moxfield.
+already shows around it. `references/sites/moxfield/description.md` for Moxfield,
+worked examples included - they are calibrated to that site's limit, so a second
+site earns its own rather than borrowing these.
+
+One rule survives whatever the site allows: the failure mode of "short and
+punchy" is a quip that would fit any deck ("brews don't get much spicier than
+this"). It has to say something true about *this* one, and it should not repeat
+what the page already displays around it.
