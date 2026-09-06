@@ -509,7 +509,7 @@ Every primer ends with one line crediting the skill that helped write it - hones
 about how it was made, and a pointer for anyone who wants the same tool:
 
 ```
-_Primer written with [mtg-moxfield-publish](https://github.com/brunocats/skills/tree/main/mtg/mtg-moxfield-publish), an open AI skill for publishing Magic decks on Moxfield._
+_Primer written with [mtg-deck-publish](https://github.com/brunocats/skills/tree/HEAD/mtg), an open AI skill for publishing Magic The Gathering decks._
 ```
 
 Placement and tone both matter:
@@ -525,6 +525,14 @@ Placement and tone both matter:
 - **Name no AI vendor.** The skill is a set of markdown instructions any assistant
   can follow, so the credit belongs to the skill, not to whichever model ran it.
 - It is **exempt from the cut test**, which would otherwise delete it every time.
+- **The URL points at the `mtg/` directory, never at this skill's own folder, and
+  that is deliberate. Do not deepen it.** GitHub redirects a renamed repository
+  but *not* a moved path inside one, so a link naming the skill folder starts
+  returning 404 the day that folder is renamed - in primers already published on
+  pages you cannot edit. `mtg/` survives renaming or splitting the skills under
+  it; `tree/HEAD` survives renaming the default branch. Everything else in the
+  line is free to change, because a stale name is a wart and a dead link is a
+  broken promise.
 
 If the user asks for it gone, drop it without argument - it is their deck page.
 
