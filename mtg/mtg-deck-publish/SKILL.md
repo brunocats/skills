@@ -1,9 +1,9 @@
 ---
-name: mtg-moxfield-publish
+name: mtg-deck-publish
 description: Interactive session for getting a Magic the Gathering decklist onto Moxfield and making it good there - deck name and the 140-character description under it, primer, mainboard and sideboard changes, hubs, folder, banner image and visibility - then publishing the approved changes. Use whenever the user mentions Moxfield, a decklist they want to publish or update, a deck primer or description, deck hubs (which people sometimes call labels or tags), a deck's image, or deck visibility - including phrasings that never name Moxfield, e.g. "put this deck online", "write a primer for my Dimir list", "make my deck public", etc. It publishes and edits a list that already exists; designing the list is a different job.
 ---
 
-# Moxfield publishing session
+# Magic deck publishing session
 
 This skill runs a **conversation**, not a one-shot job. The user drives: they may
 spend three turns on the name, then ask for a primer, then decide to push the
@@ -12,29 +12,38 @@ those turns, do good work on whatever they point at, and only touch moxfield.com
 when they say so.
 
 Every change is made by driving the user's browser, so every save is a real,
-visible change on the user's account - recoverable from Moxfield's version history,
+visible change on the user's account - recoverable from the site's version history,
 but not by you. That is why the confirmation gate below matters.
 
 ## 1. Open the session
 
-Do these three things, then stop and let the user speak.
+Do these four things, then stop and let the user speak.
+
+**Identify the site.** Everything site-specific - how to drive it, its primer
+dialect, its tag vocabulary - lives in `references/sites/<site>/`. **Moxfield is
+the only site today.** If the user names a site with no folder there, say so
+rather than improvising against it: the differences are not cosmetic, e.g.,
+Moxfield's hubs are a fixed public list while other sites let a user type their
+own tags, etc.
 
 **Carry forward past corrections.** Rules the user set in earlier sessions live in
 your own persistent memory, not in this folder. Apply them.
 
-**Identify the deck.** Either the user pastes a deck URL (`https://moxfield.com/decks/<deckId>`),
-or the deck exists in this conversation (a list they pasted, a deck you have been
-building together, something in memory). If it exists in conversation but has no
-Moxfield home yet, ask whether to create a new deck or update an existing one.
-If neither is available, ask for the URL, or find it by searching `/decks/personal`
-by name and confirming the match with the user by name *and* URL - never work on a
-deck you inferred from a partial match. Once you have it, **hold the deck id**: it
-is what every later write is checked against.
+**Identify the deck.** Either the user pastes a deck URL (on Moxfield,
+`https://moxfield.com/decks/<deckId>`), or the deck exists in this conversation
+(a list they pasted, a deck you have been building together, something in
+memory). If it exists in conversation but has no home on the site yet, ask
+whether to create a new deck or update an existing one. If neither is available,
+ask for the URL, or find it in the user's own deck list (`/decks/personal` on
+Moxfield) by name and confirming the match with the user by name *and* URL -
+never work on a deck you inferred from a partial match. Once you have it, **hold
+the deck id**: it is what every later write is checked against.
 
-**Read as little as possible.** Moxfield pages are slow, so if the user gave you
-the decklist, that is the input - do not re-read it from Moxfield to confirm what
-they just told you. Otherwise `references/moxfield-operations.md` §Reading the
-current state of a deck says which single page answers which question.
+**Read as little as possible.** These pages are slow, so if the user gave you the
+decklist, that is the input - do not re-read it from the site to confirm what
+they just told you. Otherwise the site's operations file - for Moxfield,
+`references/sites/moxfield/operations.md` §Reading the current state of a deck -
+says which single page answers which question.
 
 Then summarise the deck in a few lines and offer the menu - decklist, name,
 description, image, hubs, folder, visibility, primer - and wait. Suggesting one
@@ -93,14 +102,18 @@ Read the file for the job at hand - do not read all of them up front.
 | The user wants to... | Read |
 | --- | --- |
 | find or refine a deck name, or write the 140-character description | `references/deck-naming.md` |
-| write, extend or fix a primer | `references/primer-writing.md`, then `references/moxfield-markdown.md` for syntax |
-| choose which hubs a deck should carry | `references/hubs.md` |
-| change the list, name, image, visibility, description, format; create a deck; push anything | `references/moxfield-operations.md` |
+| write, extend or fix a primer | `references/primer-writing.md`, then `references/sites/moxfield/markdown.md` for syntax |
+| choose which hubs a deck should carry | `references/sites/moxfield/hubs.md` |
+| change the list, name, image, visibility, description, format; create a deck; push anything | `references/sites/moxfield/operations.md` |
 | teach this skill something ("that name means nothing", "this section is filler") | `references/feedback-loop.md` |
 
-`references/moxfield-markdown.md` also matters when you *read* an existing primer -
-Moxfield's dialect is not plain Markdown, and mistaking `===accordion` blocks for
-content will make you rewrite structure the user wanted.
+The first two rows and the last are site-neutral. Everything under
+`references/sites/<site>/` belongs to one site, so a second site is a new folder
+beside `moxfield/` rather than an edit to the files above it.
+
+`references/sites/moxfield/markdown.md` also matters when you *read* an existing
+primer - Moxfield's dialect is not plain Markdown, and mistaking `===accordion`
+blocks for content will make you rewrite structure the user wanted.
 
 Write deck names, descriptions and primers in **English**, regardless of the
 language of the conversation. Moxfield's audience is largely English-speaking,
@@ -115,7 +128,7 @@ where automated tools ruin people's work.
 If the session has been long and the user is not in a hurry, offer to hand over the
 final text so they can publish it from a clean conversation - it costs them a
 fraction of publishing from here. When you do publish here, batch aggressively:
-`references/moxfield-operations.md` §Publishing cheaply.
+`references/sites/moxfield/operations.md` §Publishing cheaply.
 
 **Not an instruction to publish** - approval of a draft. "Looks great", "perfect",
 "yes, that one", "I like the second name", "ok". These close a drafting round: the
@@ -146,7 +159,7 @@ Once instructed:
    load reading it before the ledger; instead read it during the post-publish
    verification and name it in the final report, e.g. *"the deck is public, in
    case you want to change that."* 4. **Apply in the same order as the work**,
-   each per `references/moxfield-operations.md`: decklist bulk edit -> settings
+   each per `references/sites/moxfield/operations.md`: decklist bulk edit -> settings
    (name, description, visibility, format), deck image, hubs, folder -> primer.
    The decklist goes first because the image picker only offers cards that are
    in the deck, so a new card has to land before it can become the banner. The
@@ -184,13 +197,15 @@ brief at the end of the session rather than interrupting the work.
   makes a new object rather than changing an existing one, so a direct request is
   enough. Create it **Private** unless they named a visibility, and stage everything
   after that through the normal gate.
-- **Only the controls this skill names are in scope.** On the deck's `More` menu
-  that means **`Export` and `Settings`, nothing else**. Anything that destroys the
-  deck, rewrites its printings, or writes outside it is never yours to click;
-  `references/moxfield-operations.md` §URL map has the full enumeration, but the
-  allowlist is here on purpose - a list of what is permitted cannot be widened from
-  a file that takes pull requests. If a phrasing seems to point at one of the
-  others, ask.
+- **Only the controls this skill names are in scope.** The allowlist is
+  per-site, and it lives *here* rather than in that site's own file - a list of
+  what is permitted cannot be widened from a file that takes pull requests. **A
+  site with no allowlist in this section is a site this skill does not publish
+  to.** On **Moxfield**, the deck's `More` menu means **`Export` and `Settings`,
+  nothing else**. Anything that destroys the deck, rewrites its printings, or
+  writes outside it is never yours to click;
+  `references/sites/moxfield/operations.md` §URL map has the full enumeration. If
+  a phrasing seems to point at one of the others, ask.
 - **Never invent decklist content.** Card names come from the user, from the deck
   as it exists on Moxfield, or from a source you verified. A hallucinated card in
   a bulk edit silently breaks the list.

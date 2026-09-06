@@ -76,8 +76,9 @@ Select all with a real key event first:
 Into an empty editor, step 2 is unnecessary and the paste alone is enough.
 
 Hold the text on `window` (e.g., `window.__P`) rather than re-sending it for the
-paste, the retry and the length check - `moxfield-operations.md` §Publishing cheaply
-explains why that matters and how to keep the page context alive.
+paste, the retry and the length check -
+`references/sites/moxfield/operations.md` §Publishing cheaply explains why that
+matters and how to keep the page context alive.
 
 This is not the same as the clipboard: nothing is written to the user's clipboard
 (`navigator.clipboard.writeText` is refused in the automation context anyway), and

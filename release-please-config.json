@@ -2,9 +2,9 @@
   "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
   "separate-pull-requests": true,
   "packages": {
-    "mtg/mtg-moxfield-publish": {
+    "mtg/mtg-deck-publish": {
       "release-type": "simple",
-      "package-name": "mtg-moxfield-publish",
+      "package-name": "mtg-deck-publish",
       "initial-version": "0.1.0",
       "include-component-in-tag": true,
       "changelog-path": "CHANGELOG.md",

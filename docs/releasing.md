@@ -11,7 +11,7 @@ pull request holds the next version number and the changelog entries generated
 from the commits since the last release.
 
 Merging the release pull request *is* the release: it tags the skill
-(e.g. `mtg-moxfield-publish-v1.2.0`), publishes a GitHub release with the notes,
+(e.g. `mtg-deck-publish-v1.2.0`), publishes a GitHub release with the notes,
 and writes that skill's `CHANGELOG.md`.
 
 The whole flow:
@@ -31,9 +31,9 @@ is what matters, and a CI check rejects titles that do not conform.
 
 | Pull request title | Effect |
 | --- | --- |
-| `fix(mtg-moxfield-publish): correct the bulk edit board description` | patch bump, "Fixed" |
-| `feat(mtg-moxfield-publish): add a mulligan section to the primer` | minor bump, "Added" |
-| `docs(mtg-moxfield-publish): clarify the hub selection rules` | no bump on its own; appears under "Documentation" in the next release |
+| `fix(mtg-deck-publish): correct the bulk edit board description` | patch bump, "Fixed" |
+| `feat(mtg-deck-publish): add a mulligan section to the primer` | minor bump, "Added" |
+| `docs(mtg-deck-publish): clarify the hub selection rules` | no bump on its own; appears under "Documentation" in the next release |
 | `docs: clarify the contribution rules` | nothing - repository documentation is outside every package |
 | `ci: pin the scanner version` | nothing - hidden, and outside every package |
 | `chore: tidy the template` | nothing - hidden from the changelog |
@@ -50,7 +50,7 @@ wrong:
   skill only when the change is inside that skill's folder.
 
 A breaking change - anything that would surprise someone who already installed the
-skill - takes a `!` after the type (`feat(mtg-moxfield-publish)!: ...`) or a
+skill - takes a `!` after the type (`feat(mtg-deck-publish)!: ...`) or a
 `BREAKING CHANGE:` footer, and bumps the major version.
 
 If you edit a contributor's title while squashing, that edited title is what counts.

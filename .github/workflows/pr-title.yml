@@ -38,7 +38,7 @@ jobs:
             ci
             chore
           scopes: |
-            mtg-moxfield-publish
+            mtg-deck-publish
           requireScope: false
           # Dependabot titles its own pull requests, and cannot be made to match
           # this convention reliably - it writes an unknown `deps` scope and a

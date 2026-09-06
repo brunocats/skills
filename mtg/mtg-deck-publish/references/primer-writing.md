@@ -406,7 +406,7 @@ In order of preference. The first is usually enough on its own:
    same deck. Read one sibling for this, not all of them.
 
 3. **Diff the decklists** - one page load per variant, per
-   `references/moxfield-operations.md`, comparing each against the primer deck
+   `references/sites/moxfield/operations.md`, comparing each against the primer deck
    and compressing the cards that differ into the intent behind them. Show the
    user what you concluded and from what: a difference you inferred is a guess
    about their reasoning until they confirm it.
@@ -570,7 +570,7 @@ an outline, agree on it, and write it under the same tone rules. If it turns out
 restate the Gameplan, say so and propose folding it in.
 
 Once a primer runs past four sections, wrap them in Moxfield accordion panels so
-the reader gets a table of contents - see `references/moxfield-markdown.md`.
+the reader gets a table of contents - see `references/sites/moxfield/markdown.md`.
 With the two user-supplied sections filled in, most primers will cross that
 line.
 
@@ -609,7 +609,7 @@ credit line, so the user can read it as source and copy it if they want it
 elsewhere. The Notable Exclusions ask goes *after* the block, not inside it.
 Take their edits there - the Moxfield editor is a poor place to iterate. It only
 goes to Moxfield when they ask to push, and then per
-`references/moxfield-operations.md`.
+`references/sites/moxfield/operations.md`.
 
 When revising a primer that already exists, read the current source first and
 **keep what is good**. A user asking for a better Synergies & Traps section

@@ -4,7 +4,7 @@
 `DIMIR (UB)`, `TEMPO`): chosen from a fixed list, visible to everyone, and the main
 way strangers find the deck. Moxfield's own modal calls them *themes*, so the two
 words mean the same thing. This file is about **which** hubs to pick;
-`references/moxfield-operations.md` covers how to set them, and how folders work.
+`references/sites/moxfield/operations.md` covers how to set them, and how folders work.
 
 Hubs are not the user's private filing - that is **folders**, on `/decks/personal`.
 Moxfield has no third thing called "labels" or "tags" at the deck level, so if that

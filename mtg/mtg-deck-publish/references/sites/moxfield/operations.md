@@ -300,7 +300,8 @@ The things that go wrong:
   Never invent a printing.
 - **Non-English cards cannot be added through bulk edit** at all.
 - **Getting the text in.** Long replacements have their own failure modes, and
-  picking the wrong board's box overwrites it. `references/text-injection.md`.
+  picking the wrong board's box overwrites it.
+  `references/sites/moxfield/text-injection.md`.
 - **Save vs Save & Continue Editing.** `Save` returns to the deck page, which is
   where you want to be to verify counts. Use `Save & Continue Editing` only when
   you have another board to edit in the same pass.
@@ -318,14 +319,14 @@ Themes**: a search box and a long checkbox list, then **Save**.
 
 - Check to add, uncheck to remove, then Save once. You can also remove a hub
   directly with the `x` on its chip.
-- The modal's list is the authority on which hubs exist; `references/hubs.md`
-  covers which ones to pick.
+- The modal's list is the authority on which hubs exist;
+  `references/sites/moxfield/hubs.md` covers which ones to pick.
 - `Primer` is a hub like any other, and the primer editor's `+ Primer Badge` button
   is just a shortcut that adds it. Do not click it on its own - it is a public hub
   change, so it goes in the ledger and through the gate like every other hub.
-  `references/hubs.md` says when to stage it.
+  `references/sites/moxfield/hubs.md` says when to stage it.
 
-Which hubs to pick is in `references/hubs.md`.
+Which hubs to pick is in `references/sites/moxfield/hubs.md`.
 
 ## Deck image
 
@@ -383,18 +384,18 @@ Workflow that avoids pain:
 
 1. Read the existing source first (the editor shows raw source, not rendered).
    2. Compose the new primer in the chat and get it approved there. 3. Put the
-   text in - see `references/text-injection.md`, which also covers why a save
-   can look successful and not be - then click **Preview** and read the rendered
-   result. `Preview` toggles in place and becomes `Back to Edit`. Preview is the
-   only reliable check that your syntax works - card links, symbols, accordions
-   and centring all fail *silently* as literal text if the syntax is off. 4.
-   Click **Back to Edit**, then **Save Primer**.
+   text in - see `references/sites/moxfield/text-injection.md`, which also covers
+   why a save can look successful and not be - then click **Preview** and read
+   the rendered result. `Preview` toggles in place and becomes `Back to Edit`.
+   Preview is the only reliable check that your syntax works - card links,
+   symbols, accordions and centring all fail *silently* as literal text if the
+   syntax is off. 4. Click **Back to Edit**, then **Save Primer**.
 
 `Cancel` discards the buffer, so an unsaved experiment costs nothing. Nothing is
 saved until **Save Primer** is clicked - which also means a session that ends with
 an un-clicked Save Primer changed nothing.
 
-Moxfield's primer dialect and its traps are in `references/moxfield-markdown.md`.
+Moxfield's primer dialect and its traps are in `references/sites/moxfield/markdown.md`.
 Read it before writing a primer - plain Markdown mana notation like `{B}{B}` does
 **not** render on Moxfield.
 

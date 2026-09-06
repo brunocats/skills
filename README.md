@@ -12,14 +12,14 @@ mtg/     Magic: The Gathering
 
 | Skill | What it does |
 | --- | --- |
-| [mtg/mtg-moxfield-publish](mtg/mtg-moxfield-publish/) | Runs an interactive session to publish or update a Magic: The Gathering decklist on Moxfield - deck name, description, primer, hubs, image and visibility - and pushes the approved changes by driving a browser. |
+| [mtg/mtg-deck-publish](mtg/mtg-deck-publish/) | Runs an interactive session to publish or update a Magic: The Gathering decklist on Moxfield - deck name, description, primer, hubs, image and visibility - and pushes the approved changes by driving a browser. |
 
 ## Using one
 
 Take the folder from a [release](https://github.com/brunocats/skills/releases)
 rather than from `main`, drop it wherever your assistant loads skills from, and ask
 for the thing it does. Each skill is versioned and tagged separately
-(`mtg-moxfield-publish-v1.2.0`) and carries its own `CHANGELOG.md`.
+(`mtg-deck-publish-v1.2.0`) and carries its own `CHANGELOG.md`.
 
 ## Is this safe to install?
 

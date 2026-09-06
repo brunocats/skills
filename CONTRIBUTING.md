@@ -68,8 +68,8 @@ repository squash-merges using the pull request title. So the title has to be a
 if it is not:
 
 ```
-fix(mtg-moxfield-publish): correct the bulk edit board description
-feat(mtg-moxfield-publish): add a mulligan section to the primer
+fix(mtg-deck-publish): correct the bulk edit board description
+feat(mtg-deck-publish): add a mulligan section to the primer
 docs: clarify the contribution rules
 ```
 

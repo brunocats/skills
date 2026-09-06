@@ -110,7 +110,7 @@ This doubles as the PR description. Fill every field; the maintainer should not
 have to ask a follow-up question.
 
 ```
-SKILL IMPROVEMENT - mtg-moxfield-publish
+SKILL IMPROVEMENT - mtg-deck-publish
 
 FILE:      references/primer-writing.md
 SECTION:   "Getting card text right"

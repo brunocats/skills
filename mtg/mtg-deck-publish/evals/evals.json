@@ -1,5 +1,5 @@
 {
-  "skill_name": "mtg-moxfield-publish",
+  "skill_name": "mtg-deck-publish",
   "note": "Opening prompts only; the multi-turn continuations and the expected behaviour are in example-sessions.md. Assertions to be added once these are run against a real deck.",
   "evals": [
     {
