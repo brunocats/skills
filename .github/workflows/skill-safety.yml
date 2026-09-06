@@ -109,10 +109,17 @@ jobs:
           URL = re.compile(r"https?://[A-Za-z0-9.\-]+\S*")
           HOST = re.compile(r"https?://([A-Za-z0-9.\-]+)")
 
-          # Files that are not markdown but are written by release automation.
+          # Files that are not markdown but are written *by* release automation.
           # Matched by full path, not by basename: a references/version.txt is not
           # the same file as a package's own. CHANGELOG.md needs no entry - it is
           # already markdown.
+          #
+          # release-please-config.json is deliberately absent: automation reads it
+          # rather than writing it, so it is maintainer configuration and is
+          # refused by name above. Before that it fell through to here and failed
+          # as "not markdown", which is true and misleading - it reads as an
+          # extension rule a contributor could work around rather than a surface
+          # they may not touch.
           def release_artifact(p):
               return (p == ".release-please-manifest.json"
                       or re.fullmatch(r"[^/]+/[^/]+/version\.txt", p) is not None)
@@ -135,6 +142,7 @@ jobs:
               return (bool(re.search(r"(^|/)SKILL\.md$", p))
                       or p.startswith(".github/")
                       or p == "AGENTS.md"
+                      or p == "release-please-config.json"
                       or EVALS.search(p) is not None)
 
           # Characters that make the rendered diff differ from the text an
@@ -177,6 +185,9 @@ jobs:
                       refused.add(p)
                   elif p == "AGENTS.md":
                       fails.append(f"{p}: instructions to an assistant are maintainer-only")
+                      refused.add(p)
+                  elif p == "release-please-config.json":
+                      fails.append(f"{p}: release configuration is maintainer-only")
                       refused.add(p)
                   elif EVALS.search(p):
                       fails.append(f"{p}: a skill's evals are maintainer-only - see CONTRIBUTING.md")
