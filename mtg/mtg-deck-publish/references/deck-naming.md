@@ -1,6 +1,6 @@
 # Naming a deck
 
-A deck name on Moxfield does two jobs at once: it tells a stranger scrolling a
+A deck name does two jobs at once: it tells a stranger scrolling a
 list of decks what this is, and it gives the user something they are happy to say
 out loud. A name that only does the second is a private joke; a name that only
 does the first is a filing code.
@@ -16,8 +16,8 @@ does the first is a filing code.
 - **Short** - two to five words. Long names get truncated in deck lists and on
   deckbox images.
 
-Moxfield asks that names stay family-friendly; that is a site rule, not a
-suggestion.
+A site may impose its own content rules on names - Moxfield asks that they stay
+family-friendly, e.g. - and those are rules, not suggestions.
 
 ## Work out what the deck actually is
 
@@ -87,39 +87,6 @@ not about that one name - handle it per `references/feedback-loop.md` so it stic
 
 ## The description goes with it
 
-Writing the description is the step straight after the name. Moxfield's
-**description** is a separate line of at most **140 characters**, and Moxfield
-publishes no guidance on it at all - their help centre has an article on writing
-primers and not a word about this field - so the only hard rule is the character
-count.
-
-Two facts about where it appears, both checked, and they set the job:
-
-- It renders **only on the deck page**, under the title and directly above the
-  primer. It does **not** appear in explore, browse or search listings - those
-  cards have no slot for it.
-- It does **not** feed the page's social or search preview either; Moxfield fills
-  those with a generic "A <format> deck created on Moxfield by <user>".
-
-So it is not winning anyone's click. It is the first line a visitor reads *after*
-arriving, sitting immediately above the primer - which makes its job **teasing the
-primer**, not summarising the deck.
-
-Write one short, concrete, slightly playful sentence about what makes this deck
-particular. Fun is welcome; vague is not. The failure mode of "short and fun" is a
-quip that would fit any deck ("brews don't get much spicier than this") - it has to
-say something true about *this* one:
-
-```
-Archfiend Pact     Hand your opponent a Demonic Pact and let it do the rest.
-Seedshark          Every answer you cast leaves a body behind.
-Ensoul             Turn-two 5/5s that shrug off wrath effects.
-```
-
-Note what those do not say: no colour pairs, no format, no card counts. Moxfield
-already displays all of that around the description, and the primer explains the
-deck properly a few lines below.
-
-Count the characters before offering it; one that gets truncated at 140 reads worse
-than a shorter one that finishes its sentence. Plain text only - no card links, no
-markdown, those belong in the primer.
+Writing the description is the step straight after the name, and what it has to
+be is set by the site: how long it may run, where it renders, and what the page
+already shows around it. `references/sites/moxfield/description.md` for Moxfield.

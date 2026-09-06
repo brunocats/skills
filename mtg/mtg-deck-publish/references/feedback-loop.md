@@ -42,7 +42,7 @@ chatty you want the session, hub taste, anything about your decks. Apply it and
 record it; never send it upstream. A maintainer cannot merge someone's taste
 without making the skill worse for everyone else.
 
-**A defect - worth upstreaming.** The skill got a fact about Moxfield wrong, a page
+**A defect - worth upstreaming.** The skill got a fact about the site wrong, a page
 or control moved, an instruction does not work, the skill reasons badly in a way
 that would mislead any user (e.g., it dismissed a card that copies itself, it
 mis-stated a rules interaction, etc.). These are wrong regardless of who is running
@@ -79,7 +79,7 @@ payoff card; keep purely evocative names to at most one option.
 ## Sending a defect upstream
 
 Only when the user asks for it. Opening a pull request writes to someone else's
-repository, so it gets the same treatment as publishing to Moxfield: propose it,
+repository, so it gets the same treatment as publishing a deck: propose it,
 and act only on an explicit yes.
 
 A defect is fixed **on a branch, in the files** - not logged somewhere for the

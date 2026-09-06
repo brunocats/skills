@@ -24,7 +24,7 @@ not work out from the decklist in thirty seconds. Everything else is padding.
 
 **Let it breathe.** A primer is read on a phone as often as a desktop, and dense
 markup is where readers give up. Keep lists **loose** - a blank line between items,
-which Moxfield renders with real spacing - put bold lead-ins on their own line
+which the site renders with real spacing - put bold lead-ins on their own line
 rather than burying them in a bullet, and avoid nesting bullets inside bullets
 where a bold line plus a flat list would do. Airy beats compact; a section that
 looks like a wall of dashes does not get read however good it is.
@@ -126,10 +126,10 @@ assistant's own fetch tool cannot reach `api.scryfall.com`, run it from a browse
 tab instead.
 
 Scryfall allows cross-origin requests, so the first thing to try is running the
-`fetch` from the Moxfield tab you already have open - no new tab, no lost page
-context, one call instead of three. If it fails, the likely cause is Moxfield's own
+`fetch` from the deck site tab you already have open - no new tab, no lost page
+context, one call instead of three. If it fails, the likely cause is the site's own
 content security policy rather than Scryfall; fall back to a **new tab you close
-afterwards**, in the same browser you are using for Moxfield.
+afterwards**, in the same browser you are using for the site.
 
 Two details that repeatedly matter and are easy to get wrong from memory: the exact
 mana cost (cost-reduction clauses change what a card costs but not its mana value),
@@ -336,15 +336,15 @@ a loose flat list - one line per deck, this one included:
 All of these are built to land [[Payoff Card]] early; they differ in how they
 get there.
 
-* [Deck name as it stands on Moxfield](https://moxfield.com/decks/<id>) - **this deck**; <what this build does differently>
+* [Deck name as it stands on the site](<deck url>) - **this deck**; <what this build does differently>
 
-* [Deck name as it stands on Moxfield](https://moxfield.com/decks/<id>) - <what that build does differently>
+* [Deck name as it stands on the site](<deck url>) - <what that build does differently>
 
-* [Deck name as it stands on Moxfield](https://moxfield.com/decks/<id>) - <what that build does differently>
+* [Deck name as it stands on the site](<deck url>) - <what that build does differently>
 ```
 
 Flat rather than nested - a bold lead-in plus a plain list, per *Tone* - with a
-blank line between items so Moxfield renders them with real spacing.
+blank line between items so the site renders them with real spacing.
 
 **The deck you are writing for appears in its own list, marked.** It costs one
 line and buys two things: the reader sees where this build sits rather than only
@@ -371,7 +371,7 @@ deck*.
 
 ### Writing the lines
 
-* **Link text is the deck's real name on Moxfield**, so the reader recognises
+* **Link text is the deck's real name on the site**, so the reader recognises
   the page they land on. Do not tidy or normalise it.
 
 * **One line each, two at the absolute most**, in the same grammatical shape
@@ -473,15 +473,14 @@ someone else's copyright at a URL that dies.
 
 ### Images, and why they are harder than they look
 
-**Moxfield does not host primer images.** Its editor inserts markdown syntax only -
-there is no upload, no file picker, nothing that would let you re-host a picture on
-Moxfield to keep it alive. Every embedded image is a hotlink to somebody else's
-server, and it disappears when that server does. There is no way to fix this from
-inside Moxfield, so choose accordingly:
+Whether the site hosts an uploaded image, resizes it, or serves card art itself
+decides how much of this matters, and none of it is guessable -
+`references/sites/moxfield/images.md` for Moxfield. What holds regardless is the
+order to reach for:
 
 1. **A card link, by preference.** `[[Card Name]]` renders a hover image of the art
-   with no external dependency at all, and Moxfield serves it. This gets most of the
-   visual effect for none of the risk.
+   with no external dependency at all. This gets most of the visual effect for
+   none of the risk.
 2. **An image the user hosts somewhere they control.** Durable because they own it.
    Describe the picture you would use and let them supply the URL.
 3. **A URL the user gives you from anywhere else.** Place it, and tell them once
@@ -489,13 +488,9 @@ inside Moxfield, so choose accordingly:
    choice is theirs. If they are embedding a still from a film or a meme, whose
    copyright that is remains their call to make.
 
-If your assistant can generate images, offering one is reasonable - but a generated
-image still needs a home, because Moxfield will not take the file. Only offer it
-when the user has somewhere to put it.
-
-Moxfield also cannot resize images, so anything embedded renders at full width and
-dominates the top of the page. One more reason a line of text plus a card hover is
-usually the better answer.
+If your assistant can generate images, offering one is reasonable - but unless the
+site takes the file, a generated image still needs a home. Only offer it when the
+user has somewhere to put it.
 
 ### Placement
 
@@ -577,7 +572,7 @@ to do after reading it?* and *what do you already know that I do not?* - then dr
 an outline, agree on it, and write it under the same tone rules. If it turns out to
 restate the Gameplan, say so and propose folding it in.
 
-Once a primer runs past four sections, wrap them in Moxfield accordion panels so
+Once a primer runs past four sections, wrap them in the site's accordion panels so
 the reader gets a table of contents - see `references/sites/moxfield/markdown.md`.
 With the two user-supplied sections filled in, most primers will cross that
 line.
@@ -615,8 +610,8 @@ A primer that survives this is short. That is correct.
 Show the draft in the chat as a **single fenced markdown block** ending with the
 credit line, so the user can read it as source and copy it if they want it
 elsewhere. The Notable Exclusions ask goes *after* the block, not inside it.
-Take their edits there - the Moxfield editor is a poor place to iterate. It only
-goes to Moxfield when they ask to push, and then per
+Take their edits there - the site's own editor is a poor place to iterate. It
+only goes to the site when they ask to push, and then per
 `references/sites/moxfield/operations.md`.
 
 When revising a primer that already exists, read the current source first and
