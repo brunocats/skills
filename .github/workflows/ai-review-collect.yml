@@ -1,0 +1,98 @@
+# Stage 1 of the advisory AI reviewer. Read-only, no secrets, runs on the
+# contributor's pull request.
+#
+# Contributions come from forks, where the GITHUB_TOKEN is read-only and secrets
+# are unavailable whatever a workflow requests - so a bot cannot post a comment
+# from a `pull_request` run at all. The work is therefore split in two: this job
+# gathers the material and uploads it as an artifact, and `ai-review.yml` picks
+# it up on `workflow_run`, where it runs in base-branch context with a token that
+# can write. See docs/ai-review.md.
+#
+# Nothing here is checked out. The diff, the file list and the pull request's own
+# text are read from the API rather than from a working tree, so no file from the
+# pull request's head ever lands on disk in this job and nothing from it can run.
+# That is stronger than `actions/checkout` with care taken: `checkout` on a
+# `pull_request` event checks out the merge commit, which contains the
+# contributor's changes.
+#
+# The path filter is the contributable surface from CONTRIBUTING.md. A pull
+# request that touches anything else is already refused by the `Repository
+# policy` check, so there is no judgement left for a reviewer to add.
+#
+# This check is advisory and must never be added to the branch ruleset's
+# required checks - see docs/repository-setup.md.
+
+name: ai review (collect)
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - '**/references/*.md'
+      - 'docs/**'
+
+permissions: {}
+
+concurrency:
+  group: ai-review-collect-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  collect:
+    name: ai review (collect)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+    steps:
+      - name: Gather the request
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -euo pipefail
+          mkdir -p request
+
+          # 200 KB of diff is far more than the contributable surface can
+          # produce; past that the pull request needs a person, not a summary.
+          # The API refuses to render a diff past a few thousand files; say so
+          # rather than failing the job, so the check does not go red for a
+          # reason that has nothing to do with the change.
+          if ! gh api "repos/${REPO}/pulls/${PR_NUMBER}" \
+                 -H "Accept: application/vnd.github.v3.diff" \
+                 > /tmp/pr.diff.full; then
+            echo "::warning:: the API would not render this diff"
+            printf '(the diff was too large for the API to render)\n' \
+              > /tmp/pr.diff.full
+          fi
+          head -c 204800 /tmp/pr.diff.full > request/pr.diff
+          if [ "$(wc -c < /tmp/pr.diff.full)" -gt 204800 ]; then
+            printf '\n[diff truncated at 200 KB]\n' >> request/pr.diff
+          fi
+
+          gh api --paginate "repos/${REPO}/pulls/${PR_NUMBER}/files" \
+            --jq '.[] | [.status, .filename] | @tsv' > request/pr.files
+
+          # head_sha is what stage 2 checks the artifact against, so that a run
+          # cannot be made to comment on a pull request other than its own.
+          gh api "repos/${REPO}/pulls/${PR_NUMBER}" --jq \
+            '{number: .number, title: .title, body: .body,
+              head_sha: .head.sha, base_ref: .base.ref}' \
+            > request/meta.json
+
+          if [ "$(jq -r .head_sha request/meta.json)" != "$HEAD_SHA" ]; then
+            echo "::error:: the branch moved while this job was gathering the diff"
+            exit 1
+          fi
+
+          wc -c request/pr.diff request/pr.files request/meta.json
+
+      - name: Upload the request
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: ai-review-request
+          path: request/
+          if-no-files-found: error
+          retention-days: 1

@@ -90,3 +90,11 @@ Automated checks run on every pull request - an Agent Skill scanner, a workflow
 audit and the repository policy check, all of which fail the pull request rather
 than filing a report. They are a floor, not a verdict: every line still gets
 read.
+
+One thing on a pull request is not a check. An AI reviewer leaves a comment on
+changes to `references/*.md` and `docs/` - a short structured note on whether
+the change is a bug or a preference, whether it sits with the skill's
+`SKILL.md`, and which of its claims cannot be checked from the diff. It is
+advisory in the strict sense: it merges nothing, blocks nothing, approves
+nothing, and I read the whole diff whatever it says. It can be wrong, and saying
+so in the pull request is a perfectly good answer.

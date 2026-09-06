@@ -51,6 +51,32 @@ keeping their logic inline in the workflow file, and by reading no manifest or
 requirements file from disk - which is why the scanner's version is written inline
 and bumped by hand.
 
+## The advisory AI reviewer
+
+Three things, and the third is the one that matters.
+
+**A secret.** Settings -> Secrets and variables -> Actions -> **New repository
+secret**, named `ANTHROPIC_API_KEY`. Without it stage 2 logs a warning and exits
+green, so the reviewer is off rather than broken - which is also how to turn it
+off later.
+
+**A label.** Create `needs-maintainer-judgement` (Issues -> Labels -> **New
+label**). The workflow applies and removes it but never creates it, so that it
+needs no permission to write labels repository-wide.
+
+**Not a required check.** Neither `ai review` nor `ai review (collect)` is ever
+added to the required status checks above. That list stays at four: `Agent Skill
+scan`, `Repository policy`, `zizmor` and `pr title`. `ai review` may go red -
+deliberately, so a contributor sees a finding without opening the comment - but
+red there is a signal, not a gate. Two reasons it has to stay that way. It
+depends on a third-party API and a secret, so an outage or an expired key would
+block every merge in the repository. And it is a model's opinion, which is not
+the kind of thing this repository lets refuse a change; only deterministic
+checks do that.
+
+[ai-review.md](ai-review.md) covers what the reviewer does, why it is split
+across two workflows, and what it costs.
+
 ## Private vulnerability reporting
 
 Settings -> Security -> **Private vulnerability reporting**: enable it. SECURITY.md
@@ -71,9 +97,9 @@ review from Code Owners" next to a 0 there looks like a configured gate and is n
 one, and nothing in CI will tell you. It is the only control on this page that can
 fail silently while appearing correct.
 
-Then two behaviours that cannot be confirmed from the settings pages at all, both
-of which decide whether outside contributions can merge. Open one throwaway pull
-request **from a fork** and check:
+Then three behaviours that cannot be confirmed from the settings pages at all,
+all of which decide whether outside contributions can merge at all or get
+reviewed. Open one throwaway pull request **from a fork** and check:
 
 - The `Agent Skill scan` job passes. On a fork pull request the `GITHUB_TOKEN` is
   read-only whatever the workflow requests, so the SARIF upload is skipped by
@@ -86,3 +112,6 @@ request **from a fork** and check:
   Advanced Security mode does *not* fail - it does not state the inverse. Confirm
   it by temporarily unpinning an action on the test branch and checking the job
   goes red.
+- The advisory reviewer comments. Its two-stage split exists precisely because a
+  fork's token cannot write, so a pull request from a branch of this repository
+  proves nothing about it - only a fork does. See [ai-review.md](ai-review.md).

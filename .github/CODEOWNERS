@@ -1,10 +1,18 @@
-# Advisory ownership: this requests review automatically and makes the boundary
-# visible in the diff view. On its own it is NOT a gate. With Required approvals
-# set to 0, GitHub does not enforce "Require review from Code Owners" - observed
-# on five pull requests, every one reporting an empty reviewDecision. This file is
-# the record of that behaviour; docs/repository-setup.md is where the setting it
-# requires is written down. The hard refusal of these paths does not depend on
-# either: it is the `Repository policy` check.
+# Ownership, and - as the ruleset now stands - a gate. This requests review
+# automatically and makes the boundary visible in the diff view, and because
+# Required approvals is 1, "Require review from Code Owners" is enforced: a pull
+# request touching these paths needs an approval from the owner named below.
+#
+# That enforcement rests entirely on the number. At Required approvals 0, GitHub
+# does not enforce the code-owner requirement at all, while the tick box next to
+# it looks exactly the same - observed here on five pull requests, every one
+# reporting an empty reviewDecision. Nothing in CI reports the difference. So
+# the number must not go back to 0: doing so silently removes this gate and
+# leaves a settings page that still reads as configured. The setting itself is
+# written down in docs/repository-setup.md, which says to re-read that number.
+#
+# The hard refusal of these paths does not depend on any of it: it is the
+# `Repository policy` check.
 #
 # Patterns without a slash match at any depth, so a skill added at a different
 # nesting level is still covered.
