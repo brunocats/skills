@@ -18,7 +18,11 @@
 * **mtg-deck-publish:** move the last site-bound facts out of the shared files ([ffaa466](https://github.com/brunocats/skills/commit/ffaa466e78d215aba32bc885f977d516f5973236))
 * **mtg-deck-publish:** rename the skill and group the site-specific references ([f5f94db](https://github.com/brunocats/skills/commit/f5f94db8ede74c5ffb18de2077c921b8a6b8aa3f))
 
-## 0.1.0 (2026-09-05)
+## 0.2.0 (2026-09-05)
+
+### Added
+
+* **mtg-moxfield-publish:** add the variants block to the primer ([58dfa81](https://github.com/brunocats/skills/commit/58dfa8118e5aa0cee05e3789afb9d05ef0231833))
 
 
 ### Added
