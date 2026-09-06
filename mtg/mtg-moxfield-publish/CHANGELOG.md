@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.0](https://github.com/brunocats/skills/compare/mtg-moxfield-publish-v0.1.0...mtg-moxfield-publish-v0.2.0) (2026-09-06)
+
+
+### Added
+
+* **mtg-moxfield-publish:** add the variants block to the primer ([58dfa81](https://github.com/brunocats/skills/commit/58dfa8118e5aa0cee05e3789afb9d05ef0231833))
+
 ## 0.1.0 (2026-09-05)
 
 
