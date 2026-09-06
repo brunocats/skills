@@ -11,6 +11,7 @@ not work out from the decklist in thirty seconds. Everything else is padding.
 - [Who owns which section](#who-owns-which-section)
 - [Getting card text right](#getting-card-text-right)
 - [The structure](#the-structure)
+- [Variants of this idea](#variants-of-this-idea)
 - [The flavour opening](#the-flavour-opening)
 - [The credit line](#the-credit-line)
 - [Adapting to the format](#adapting-to-the-format)
@@ -68,7 +69,10 @@ reader, never in the core sections.
 Almost all of a primer is derivable from the decklist. One section is not.
 
 **You write these** - the decklist is enough: Is This Deck For You?, Gameplan,
-Synergies & Traps, Flex Slots.
+Synergies & Traps, Flex Slots. One block inside the first of them is a partial
+exception: *Variants of this idea* names the user's sibling decks, and which
+decks belong to that family is a claim only they can make - see [Variants of
+this idea](#variants-of-this-idea).
 
 **The user owns these two** - ask once, write what they give you, and omit the
 section entirely if they give you nothing:
@@ -158,10 +162,15 @@ the last is the defence.
   construction (e.g., strict colour requirements, reliance on one permanent type,
   folding to a common answer, weak topdecks after a sweeper, etc.).
 
-These weaknesses are **matchup-level**: what kind of deck or answer beats this
-build. In-game problems belong in Gameplan. *Structural* is the load-bearing word:
-a strength that comes from the deck's construction is still true next year; one
-that comes from this month's field is not.
+* **Variants of this idea** - where the deck belongs to a family of lists the
+  user built on the same premise, the family itself, with a line on what each
+  build does differently. Optional, user-supplied, and last in the section - see
+  [Variants of this idea](#variants-of-this-idea).
+
+Those structural weaknesses are **matchup-level**: what kind of deck or answer
+beats this build. In-game problems belong in Gameplan. *Structural* is the
+load-bearing word: a strength that comes from the deck's construction is still
+true next year; one that comes from this month's field is not.
 
 A weaknesses list that is a humblebrag ("sometimes draws too many threats") makes
 the rest of the primer unreadable.
@@ -297,6 +306,141 @@ with the draft rather than preceding it. One line, after the primer, e.g.:
 
 Write up what they tell you. If they say nothing, or say to skip it, leave the
 section out and do not raise it again unless they do.
+
+## Variants of this idea
+
+Some decks come in families: several lists built on the same premise that differ
+in how they get there. Where a family exists, the primer names it, in a short
+block at the end of *Is This Deck For You?* - the right home for it, because a
+reader who has just decided this build is not for them is exactly the reader who
+wants to know which sibling might be.
+
+**The family comes from the user.** Never assemble one yourself - not from deck
+names, not from a search of their account, not from two lists that happen to
+share a payoff card. Which decks are variants of each other is a claim about
+intent, and only the user has it. They supply the URLs and, ideally, the one
+thing the family shares; if they have not raised it, this block does not exist.
+
+Deck names are a particularly poor guide: a family will often have one deck
+named for the idea and the rest carrying trailing identifiers, or no pattern at
+all. Take the names as given and let the differentiators carry the meaning.
+
+### The shape
+
+A bold lead-in on its own line, one sentence naming what the family shares, then
+a loose flat list - one line per deck, this one included:
+
+```
+**Variants of this idea**
+
+All of these are built to land [[Payoff Card]] early; they differ in how they
+get there.
+
+* [Deck name as it stands on Moxfield](https://moxfield.com/decks/<id>) - **this deck**; <what this build does differently>
+
+* [Deck name as it stands on Moxfield](https://moxfield.com/decks/<id>) - <what that build does differently>
+
+* [Deck name as it stands on Moxfield](https://moxfield.com/decks/<id>) - <what that build does differently>
+```
+
+Flat rather than nested - a bold lead-in plus a plain list, per *Tone* - with a
+blank line between items so Moxfield renders them with real spacing.
+
+**The deck you are writing for appears in its own list, marked.** It costs one
+line and buys two things: the reader sees where this build sits rather than only
+what the others are, and the block becomes the same text in every primer of the
+family.
+
+### Describe each build against the idea, not against this deck
+
+This is the rule the rest of it depends on. A line that means *how that deck
+differs from the one you are reading* has to be rewritten for every primer in
+the family, and they drift apart within a month. A line that means *what that
+build does differently within the shared idea* is a fact about that deck, so it
+is the same sentence wherever it appears.
+
+* Works anywhere: *"trades the token shell for card-advantage artifacts"*, *"the
+  same list built around [[Cunning Nightbonder]]"*
+
+* Only works from here: *"faster than this one"*, *"the grindier version of this
+  list"*, *"what to play if you found this one too fragile"*
+
+So the block is **one object, not one per deck**. Write it once; the only thing
+that differs between the primers in a family is which bullet is marked *this
+deck*.
+
+### Writing the lines
+
+* **Link text is the deck's real name on Moxfield**, so the reader recognises
+  the page they land on. Do not tidy or normalise it.
+
+* **One line each, two at the absolute most**, in the same grammatical shape
+  across the list - all verb phrases or all noun phrases, not a mixture.
+
+* **Say what a build does differently, never that it is better.** No ranking, no
+  "the strongest version" - the reader is choosing, and a list that has already
+  chosen for them is not worth reading.
+
+* **Do not restate the shared idea in each line.** The framing sentence said it
+  once; a bullet repeating it is exactly what the cut test removes.
+
+* **Link cards with `[[ ]]`** where the difference *is* a card, which it often
+  is.
+
+* **The same rot rules as everything else** - no current-metagame framing, no
+  snapshot counts. See *Write for the deck, not for the week*.
+
+* **Six is about the ceiling.** Past that the block stops helping a reader
+  choose and becomes a directory.
+
+### Where the differences come from
+
+In order of preference. The first is usually enough on its own:
+
+1. **Ask the user** - one line: what do these share, and what does each one
+   change? They built the family, they know why it exists, and the answer costs
+   no page loads. This is the intended path.
+
+2. **Reuse an existing block** - if any deck in the family already carries one,
+   take its wording verbatim rather than inventing a second description of the
+   same deck. Read one sibling for this, not all of them.
+
+3. **Diff the decklists** - one page load per variant, per
+   `references/moxfield-operations.md`, comparing each against the primer deck
+   and compressing the cards that differ into the intent behind them. Show the
+   user what you concluded and from what: a difference you inferred is a guess
+   about their reasoning until they confirm it.
+
+**Do not read the siblings' full primers.** They are among the most expensive
+pages this skill loads, and the variants block is the only part of one that
+bears on this. If a sibling has no block, option 3 is cheaper than the rest.
+
+### Links have to resolve
+
+A **private** deck 404s for every reader but its owner, so a private sibling in
+a public primer is a dead link on the page. Check or ask before listing one, and
+say plainly what listing it would mean: either that deck becomes public, or it
+stays out of the block.
+
+A deck that is not the user's can be linked if they ask for it. It is never
+edited - what follows applies only to decks they own.
+
+### Keeping the family in step
+
+The block is only worth having if all of it is true, and every deck it names
+carries a stale copy the moment the family changes. So when a deck is added,
+removed or re-described, **say so**: name the primers that are now out of date
+and offer to stage the same block into each. Do not let them drift silently, and
+do not update them unasked - each is a separate deck and a separate write.
+
+That is the real cost of this block, and the user should hear it before the
+family grows: a family of N decks means N primer pushes every time it changes,
+and the primer is the most expensive thing this skill publishes.
+
+Writing to more than one deck in a session is governed by `SKILL.md` - the
+pending ledger carries a row per deck in scope, and no write goes to a deck that
+has no row on it. Nothing here loosens that: the other decks are named, staged
+and confirmed exactly like the first.
 
 ## The flavour opening
 
@@ -450,6 +594,9 @@ A primer that survives this is short. That is correct.
 - Fixed flex counts presented as correct rather than as a range with a condition.
 - Restating the decklist as prose, or a paragraph on every card.
 - Any Notable Exclusions or Mulligans & Keeps content the user did not supply.
+- A variants block the user did not supply, or a family assembled from deck
+  names.
+- A variant line that only makes sense from the primer you happen to be writing.
 - A flavour opening that is not actually funny, included because the slot exists.
 - Hunting the web for a meme image rather than suggesting the idea.
 - Symbols and formatting used decoratively rather than to carry meaning.
