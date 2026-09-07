@@ -11,6 +11,7 @@ not work out from the decklist in thirty seconds. Everything else is padding.
 - [Who owns which section](#who-owns-which-section)
 - [Getting card text right](#getting-card-text-right)
 - [The structure](#the-structure)
+- [Where this list comes from](#where-this-list-comes-from)
 - [Variants of this idea](#variants-of-this-idea)
 - [The flavour opening](#the-flavour-opening)
 - [The credit line](#the-credit-line)
@@ -162,6 +163,11 @@ the last is the defence.
   construction (e.g., strict colour requirements, reliance on one permanent type,
   folding to a common answer, weak topdecks after a sweeper, etc.).
 
+* **Where this list comes from** - where the list owes something to another
+  list, one line naming it and what this build changed. Optional,
+  user-supplied, and sits just above the variants block - see
+  [Where this list comes from](#where-this-list-comes-from).
+
 * **Variants of this idea** - where the deck belongs to a family of lists the
   user built on the same premise, the family itself, with a line on what each
   build does differently. Optional, user-supplied, and last in the section - see
@@ -306,6 +312,103 @@ with the draft rather than preceding it. One line, after the primer, e.g.:
 
 Write up what they tell you. If they say nothing, or say to skip it, leave the
 section out and do not raise it again unless they do.
+
+## Where this list comes from
+
+A list published on the site is rarely invented from nothing, and a reader who
+knows where this one came from can go and read the source for themselves. Where
+the list owes something to another list, the primer says so - one line at the
+end of *Is This Deck For You?*, immediately above the variants block.
+
+**The debt comes from the user.** Never infer one. Two lists that overlap
+heavily are not evidence of a copy, and a list that shares almost nothing with
+its source may still have started as one; only the user knows. If they have not
+raised it, this block does not exist.
+
+### The four cases
+
+| This list is... | Which means | The line opens |
+| --- | --- | --- |
+| original | it did not come from another list | nothing, by default - see below |
+| inspired by a source | the idea rebuilt, often for another format | *Inspired by* |
+| adapted from a source | the source list with deliberate changes | *Adapted from* |
+| the source itself | played as listed, unchanged | *This is* |
+
+**The verb carries the debt, and softening it is the failure this block exists
+to prevent.** "Inspired by" over a list that was copied reads as credit while
+withholding it, and a reader who recognises the source stops trusting the rest
+of the page. Pick the case by how much of the list is the source's, not by how
+much thought went into the change: the same 75 cards is *the source itself*
+however long the user spent deciding to keep them.
+
+If the user's account of it is ambiguous, ask which of the four it is - once,
+plainly - rather than picking the flattering one.
+
+### The shape of the line
+
+A bold lead-in on its own line, then one sentence:
+
+```
+**Where this list comes from**
+
+Adapted from [Dimir Ensoul Artifact](<source url>) by <creator> - the same list
+with [[Thoughtseize]] over [[Duress]] and a rebuilt sideboard.
+```
+
+### Writing the line
+
+* **Name the creator in the text, not only in the link.** A video URL rots
+  faster than anything else this skill writes, and a dead link with no name
+  beside it credits nobody. The name is the attribution; the link is the
+  convenience.
+
+* **Link text is the source as it presents itself** - the deck's name on its own
+  site, or the video's title. Do not tidy it, and do not restyle a video title
+  to look like a deck name.
+
+* **Say what this build changed**, in the same sentence, for *inspired by* and
+  *adapted from*. That is the half of the line a reader who knows the source is
+  here for. For *this is*, say nothing further - the point is that there is
+  nothing to say.
+
+* **Describing this list against its source is correct here**, and it is the
+  opposite of the rule for the variants block. That block is one shared object
+  copied into several primers, so a relative line drifts; this one lives in a
+  single primer and describes a single relationship. See [Describe each build
+  against the idea, not against this deck](#describe-each-build-against-the-idea-not-against-this-deck).
+
+* **One source.** A list of everything that ever influenced the deck is not this
+  block. Name the list this one actually came from.
+
+* **Never the same deck as a variant.** Where the source is another of the
+  user's own decks, that is a family rather than a debt and it belongs in the
+  variants block - see [Variants of this idea](#variants-of-this-idea). No deck
+  is named in both.
+
+* **Cards in `[[ ]]`, and the same rot rules as everything else** - no
+  current-metagame framing, no snapshot counts. See *Write for the deck, not for
+  the week*.
+
+* A source that is not the user's own deck is linked, never edited, and the
+  rules on links that have to resolve apply unchanged - see [Links have to
+  resolve](#links-have-to-resolve).
+
+### When there is no source
+
+**Say nothing, by default.** An absent block is not a claim, and a primer that
+announces its own originality is making one the reader cannot check - the
+posture the *Tone* rules exist to keep out.
+
+Offer the line once, though, where the deck plainly started from a card rather
+than from a list: some users want that on the page, and it is the one thing a
+reader cannot work out from the decklist. Keep it flat and factual, with no
+adjective attached:
+
+```
+**Where this list comes from**
+
+No source list - this deck was built around [[Card Name]].
+```
 
 ## Variants of this idea
 
@@ -600,6 +703,11 @@ A primer that survives this is short. That is correct.
 - A variants block the user did not supply, or a family assembled from deck
   names.
 - A variant line that only makes sense from the primer you happen to be writing.
+- A source line the user did not supply, or a debt inferred from two lists
+  looking alike.
+- "Inspired by" over a list that was copied.
+- A source credited by URL alone, with no creator named.
+- A primer that announces its own originality.
 - A flavour opening that is not actually funny, included because the slot exists.
 - Hunting the web for a meme image rather than suggesting the idea.
 - Symbols and formatting used decoratively rather than to carry meaning.
